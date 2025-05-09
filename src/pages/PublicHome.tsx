@@ -1,7 +1,7 @@
 import { Link } from "react-router"
 
 export default function PublicHome() {
-    let heading: string = 'Homepage'
+    const heading: string = 'Homepage'
     return <div>
         <h1>{heading}</h1>
         <div className="linklist">

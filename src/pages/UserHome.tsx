@@ -2,7 +2,7 @@ import { Link, useParams } from "react-router"
 
 export default function UserHome() {
     const params = useParams<{saved: string}>();
-    let heading: string = 'UserHome';
+    const heading: string = 'UserHome';
 
     if(params.saved === 'all') {
         return <div>

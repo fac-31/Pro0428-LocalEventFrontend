@@ -1,7 +1,7 @@
 import { Link } from "react-router"
 
 export default function Login() {
-    let heading: string = 'Login'
+    const heading: string = 'Login'
     return <div>
         <h1>{heading}</h1>
         <Link to='/'>Back to Homepage</Link>
