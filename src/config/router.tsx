@@ -1,39 +1,39 @@
-import { createBrowserRouter } from 'react-router';
+import { createBrowserRouter } from "react-router";
 
-import PublicHome from '../pages/PublicHome';
-import Login from '../pages/Login';
-import SignUp from '../pages/SignUp';
-import UserHome from '../pages/UserHome';
-import UserProfile from '../pages/UserProfile';
-import Error from '../pages/Error';
+import PublicHome from "../pages/PublicHome";
+import Login from "../pages/Login";
+import SignUp from "../pages/SignUp";
+import UserHome from "../pages/UserHome";
+import UserProfile from "../pages/UserProfile";
+import Error from "../pages/Error";
 
 const router = createBrowserRouter([
   {
-    path: '/',
+    path: "/",
     element: <PublicHome />,
   },
   {
-    path: '/login',
+    path: "/login",
     element: <Login />,
   },
   {
-    path: '/signup',
+    path: "/signup",
     element: <SignUp />,
   },
   {
-    path: '/userhome',
+    path: "/userhome",
     element: <UserHome />,
   },
   {
-    path: '/userhome/:saved',
+    path: "/userhome/:saved",
     element: <UserHome />,
   },
   {
-    path: '/userprofile',
+    path: "/userprofile",
     element: <UserProfile />,
   },
   {
-    path: '/error',
+    path: "/error",
     element: <Error />,
   },
 ]);

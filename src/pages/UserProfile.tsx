@@ -1,7 +1,7 @@
-import { Link } from 'react-router';
+import { Link } from "react-router";
 
 export default function UserProfile() {
-  const heading: string = 'UserProfile';
+  const heading: string = "UserProfile";
   return (
     <div>
       <h1>{heading}</h1>
