@@ -1,7 +1,7 @@
-import { Link } from "react-router";
+import { Link } from 'react-router';
 
 export default function Login() {
-  const heading: string = "Login";
+  const heading: string = 'Login';
   return (
     <div>
       <h1>{heading}</h1>

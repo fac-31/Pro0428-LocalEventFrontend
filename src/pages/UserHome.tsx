@@ -1,17 +1,17 @@
-import { Link, useParams } from "react-router";
+import { Link, useParams } from 'react-router';
 
 export default function UserHome() {
   const params = useParams<{ saved: string }>();
-  const heading: string = "UserHome";
+  const heading: string = 'UserHome';
 
-  if (params.saved === "all") {
+  if (params.saved === 'all') {
     return (
       <div>
         <h1>{heading} - All</h1>
         <Link to="/">Back to Homepage</Link>
       </div>
     );
-  } else if (params.saved === "saved") {
+  } else if (params.saved === 'saved') {
     return (
       <div>
         <h1>{heading} - Saved</h1>
