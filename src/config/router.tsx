@@ -6,6 +6,7 @@ import SignUp from '../pages/SignUp';
 import UserHome from '../pages/UserHome';
 import UserProfile from '../pages/UserProfile';
 import Error from '../pages/Error';
+import SavedEvents from '../pages/SavedEvents';
 
 const router = createBrowserRouter([
   {
@@ -21,11 +22,7 @@ const router = createBrowserRouter([
     element: <SignUp />,
   },
   {
-    path: '/userhome',
-    element: <UserHome />,
-  },
-  {
-    path: '/userhome/:saved',
+    path: '/userhome/:filter',
     element: <UserHome />,
   },
   {
@@ -33,7 +30,11 @@ const router = createBrowserRouter([
     element: <UserProfile />,
   },
   {
-    path: '/error',
+    path: '/savedevents/:filter',
+    element: <SavedEvents />,
+  },
+  {
+    path: '/*',
     element: <Error />,
   },
 ]);

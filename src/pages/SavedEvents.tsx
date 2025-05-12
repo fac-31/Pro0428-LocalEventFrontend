@@ -1,8 +1,8 @@
 import { Link, useParams } from 'react-router';
 
-export default function UserHome() {
+export default function SavedEvents() {
   const params = useParams<{ filter: string }>();
-  const heading: string = 'UserHome';
+  const heading: string = 'Saved Events';
 
   if (params.filter) {
     return (
