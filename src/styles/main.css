@@ -1,1 +1,22 @@
 @import "tailwindcss";
+
+body {
+    min-height: 100vh;
+
+    color: #E1D2E5;
+    background: #2D272F;
+}
+
+#root {
+    min-height: 100vh;
+}
+
+label, input {
+    color: #FFFFFF;
+    text-transform: uppercase;
+    font-weight: 500;
+}
+
+input {
+    background: #E1D2E51A;
+}
