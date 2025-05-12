@@ -1,14 +1,14 @@
 import { Link, useParams } from 'react-router';
 
 export default function SavedEvents() {
-  const params = useParams<{ filter: string }>();
+  const params = useParams<{ mode: string }>();
   const heading: string = 'Saved Events';
 
-  if (params.filter) {
+  if (params.mode) {
     return (
       <div>
         <h1>
-          {heading} - {params.filter}
+          {heading} - {params.mode}
         </h1>
         <Link to="/">Back to Homepage</Link>
       </div>
