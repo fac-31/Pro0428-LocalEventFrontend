@@ -6,7 +6,7 @@ import SignUp from '../pages/SignUp';
 import UserHome from '../pages/UserHome';
 import UserProfile from '../pages/UserProfile';
 import Error from '../pages/Error';
-import UserSaved from '../pages/UserSaved';
+import SavedEvents from '../pages/SavedEvents';
 
 const router = createBrowserRouter([
   {
@@ -22,10 +22,6 @@ const router = createBrowserRouter([
     element: <SignUp />,
   },
   {
-    path: '/userhome',
-    element: <UserHome />,
-  },
-  {
     path: '/userhome/:mode',
     element: <UserHome />,
   },
@@ -38,7 +34,11 @@ const router = createBrowserRouter([
     element: <UserProfile />,
   },
   {
-    path: '/error',
+    path: '/savedevents/:mode',
+    element: <SavedEvents />,
+  },
+  {
+    path: '/*',
     element: <Error />,
   },
 ]);
