@@ -6,17 +6,25 @@ export default function Login() {
         <div className="flex">
           <form className="inline-block m-auto">
             <div className="my-2">
-              <label className="pr-4" htmlFor="username">Username</label>
+              <label className="pr-4" htmlFor="username">
+                Username
+              </label>
               <input type="text" id="username" name="username"></input>
             </div>
 
             <div className="my-2">
-              <label className="pr-4" htmlFor="password">Password</label>
-              <input type="password" id="password" name="password"></input>  
+              <label className="pr-4" htmlFor="password">
+                Password
+              </label>
+              <input type="password" id="password" name="password"></input>
             </div>
 
             <div className="my-2">
-              <input className="uppercase w-full" type="submit" value="Log In"></input>
+              <input
+                className="uppercase w-full"
+                type="submit"
+                value="Log In"
+              ></input>
             </div>
           </form>
         </div>
