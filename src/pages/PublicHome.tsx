@@ -1,8 +1,14 @@
 import { Link } from 'react-router';
-
+import { FetchAPI } from '../api/util.ts';
+import event from '../components/events.tsx';
 import '../styles/home.css';
 
 export default function PublicHome() {
+  const events = FetchAPI('events');
+
+  const info: array = [];
+  for (let i = 0; i < events.length; i++) info.push(event(events[i]));
+
   const heading: string = 'Homepage';
   return (
     <div>
@@ -15,6 +21,7 @@ export default function PublicHome() {
         <Link to="/userprofile">User Profile</Link>
         <Link to="/error">Error Page</Link>
       </div>
+      {info}
     </div>
   );
 }
