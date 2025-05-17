@@ -1,7 +1,9 @@
 import DirectButton from '../minor/DirectButton';
-let id: number = 5; //for when we have user auth in place
+import { useContext } from 'react';
+import { IdContext } from '../../config/IdContext';
 
 export default function NavBar() {
+  const { id } = useContext(IdContext);
   if (id) {
     return (
       <div className="flex justify-between border-b-3 input">
@@ -22,5 +24,3 @@ export default function NavBar() {
     );
   }
 }
-
-//note to self - data flow through front end, refactoring and file structure
