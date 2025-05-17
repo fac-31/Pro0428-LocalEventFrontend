@@ -1,9 +1,9 @@
 //import { Children } from 'react';
 
-import CategoryBar from '../category-bar';
-import Events from '../events';
-import NavBar from '../nav-bar';
-import SideBar from '../side-bar';
+import CategoryBar from '../major/category-bar';
+import Events from '../major/events';
+import NavBar from '../major/nav-bar';
+import SideBar from '../major/side-bar';
 
 export default function EventLayout() {
   return (
