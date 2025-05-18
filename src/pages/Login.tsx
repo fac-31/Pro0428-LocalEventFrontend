@@ -6,13 +6,13 @@ import { useNavigate } from 'react-router';
 export default function Login() {
   const { setId } = useContext(IdContext);
   const navigate = useNavigate();
-  
+
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault(); // Prevent form from submitting normally
     setId(true);
     navigate('/userhome'); // Redirect to user home page
   };
-  
+
   return (
     <div className="flex min-h-screen">
       <div className="m-auto min-w-1/2 border-b-3 border-t-3">

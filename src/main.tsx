@@ -4,7 +4,7 @@ import { RouterProvider } from 'react-router';
 
 import router from './config/router';
 import './styles/main.css';
-import { IdProvider } from './config/IdContext';
+import { IdProvider } from './config/IdProvider';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>

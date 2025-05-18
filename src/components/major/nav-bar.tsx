@@ -5,7 +5,7 @@ import { useLocation } from 'react-router';
 import '../../styles/navbar.css';
 
 export default function NavBar() {
-  let pathname: string = useLocation().pathname;
+  const pathname: string = useLocation().pathname;
   const { id } = useContext(IdContext);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -75,7 +75,7 @@ export default function NavBar() {
   } else {
     return (
       <div className="border-b-3 input">
-        {/* Desktop navbar */}
+        {/* Navbar before login */}
         <div className=" flex justify-between items-center">
           <DirectButton text={'LIGHT MODE'} route={'/'} />
           <DirectButton text={'LOGIN'} route={'/login'} />

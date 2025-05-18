@@ -1,4 +1,4 @@
-import { createContext, useState, ReactNode, Dispatch, SetStateAction } from 'react';
+import { createContext, Dispatch, SetStateAction } from 'react';
 
 // Define the shape of our context value
 type IdContextType = {
@@ -11,13 +11,3 @@ export const IdContext = createContext<IdContextType>({
   id: false,
   setId: () => {}, // Placeholder function for initial context
 });
-
-export const IdProvider = ({ children }: { children: ReactNode }) => {
-  const [id, setId] = useState<boolean>(false);
-
-  return (
-    <IdContext.Provider value={{ id, setId }}>
-      {children}
-    </IdContext.Provider>
-  );
-};
