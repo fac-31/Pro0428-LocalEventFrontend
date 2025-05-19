@@ -5,10 +5,10 @@ import Events from '../major/events';
 import NavBar from '../major/nav-bar';
 import SideBar from '../major/side-bar';
 
-import { FetchAPI } from '../../api/util.ts';
+import { GetRouterAPI } from '../../api/util.ts';
 
 export default function EventLayout() {
-  const events = FetchAPI('events');
+  const events = GetRouterAPI('events');
 
   const info: array = [];
   for (let i = 0; i < events.length; i++) info.push(Events(events[i]));

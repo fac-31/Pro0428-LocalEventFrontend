@@ -4,12 +4,12 @@ import { RouterProvider } from 'react-router';
 
 import router from './config/router';
 import './styles/main.css';
-import { IdProvider } from './config/IdProvider';
+import { TokenProvider } from './config/TokenProvider';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <IdProvider>
+    <TokenProvider>
       <RouterProvider router={router} />
-    </IdProvider>
+    </TokenProvider>
   </StrictMode>,
 );
