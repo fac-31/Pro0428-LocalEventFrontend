@@ -22,7 +22,7 @@ const router = createBrowserRouter([
     element: <SignUp />,
   },
   {
-    path: '/userhome/:mode',
+    path: '/userhome/:mode?',
     element: <UserHome />,
   },
   {
@@ -30,7 +30,7 @@ const router = createBrowserRouter([
     element: <UserProfile />,
   },
   {
-    path: '/savedevents/:mode',
+    path: '/savedevents/:mode?',
     element: <SavedEvents />,
   },
   {
