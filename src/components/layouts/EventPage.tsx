@@ -23,9 +23,7 @@ export default function EventLayout() {
         <div className="mr-5 flex shrink">
           <SideBar />
         </div>
-        <div className="flex grow">
-          {info}
-        </div>
+        <div className="flex grow">{info}</div>
       </div>
     </div>
   );
