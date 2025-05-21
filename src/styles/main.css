@@ -1,10 +1,17 @@
 @import 'tailwindcss';
+@import 'tw-animate-css';
+
+@theme {
+  --color-background: #2d272f;
+  --color-accent: rgb(38, 35, 39);
+  --color-text: #e1d2e5;
+  --color-input-bg: #e1d2e51a;
+}
 
 body {
   min-height: 100vh;
-
-  color: #e1d2e5;
-  background: #2d272f;
+  color: var(--color-text);
+  background: var(--color-background);
 }
 
 #root {
@@ -14,10 +21,10 @@ body {
 label,
 input {
   color: #ffffff;
-  text-transform: uppercase;
   font-weight: 500;
 }
 
 input {
-  background: #e1d2e51a;
+  background: var(--color-input-bg);
 }
+
