@@ -24,7 +24,7 @@ export default function EventLayout() {
       </div>
 
       <div className="flex flex-1">
-        <div className="fixed top-10 h-full border-r bg-accent ">
+        <div className="fixed h-full border-r bg-accent ">
           <SideBar
             selectedModes={selectedModes}
             setSelectedModes={setSelectedModes}
@@ -39,7 +39,7 @@ export default function EventLayout() {
           />
         </div>
 
-        <main className="flex-1 overflow-y-auto mt-9 p-9 text-center">
+        <main className="flex-1 overflow-y-auto mt-10 ml-10 text-center">
           For dev purposes only. Delete me when implementing events
           <p>{selectedModes}</p>
           <p>{search}</p>
