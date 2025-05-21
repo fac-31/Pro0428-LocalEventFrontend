@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import { Music, Bike, HelpingHand, Ellipsis } from 'lucide-react';
 import { MenuButton } from './MenuButton';
 import { ModeButtons } from './ModeButtons';
@@ -26,6 +26,7 @@ const SideBar = ({
   setdate,
 }: SideBarProps) => {
   const [open, setOpen] = useState(false);
+  const sidebarRef = useRef<HTMLDivElement>(null);
 
   const toggleModeSelect = (id: ModeId) => {
     setSelectedModes((prev) =>
@@ -33,8 +34,28 @@ const SideBar = ({
     );
   };
 
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        sidebarRef.current &&
+        !sidebarRef.current.contains(event.target as Node)
+      ) {
+        setOpen(false);
+      }
+    };
+
+    if (open) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [open]);
+
   return (
     <div
+      ref={sidebarRef}
       className={`fixed top-9 p-2 h-full flex flex-col items-start border-text border-r-2 bg-accent transition-all duration-300 ease-in-out ${
         open ? 'w-66' : 'w-15'
       }`}
