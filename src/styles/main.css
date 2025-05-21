@@ -6,6 +6,18 @@
   --color-accent: rgb(38, 35, 39);
   --color-text: #e1d2e5;
   --color-input-bg: #e1d2e51a;
+
+  --animate-fade-in-left: fade-in-left 0.4s;
+  @keyframes fade-in-left {
+    from {
+      opacity: 0;
+      transform: translateX(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
 }
 
 body {
@@ -27,4 +39,3 @@ input {
 input {
   background: var(--color-input-bg);
 }
-

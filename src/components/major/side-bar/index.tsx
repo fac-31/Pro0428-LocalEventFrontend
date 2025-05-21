@@ -35,7 +35,7 @@ const SideBar = ({
 
   return (
     <div
-      className={`sticky top-10 p-2 flex flex-col items-start bg-accent  ${
+      className={`fixed top-9 p-2 h-full flex flex-col items-start border-text border-r-2 bg-accent transition-all duration-300 ease-in-out ${
         open ? 'w-66' : 'w-15'
       }`}
     >
@@ -48,7 +48,7 @@ const SideBar = ({
       />
       {open && (
         <Filters
-          className="flex flex-col px-2 gap-6"
+          className="flex flex-col px-2 gap-6 animate-fade-in animate-fade-in-left"
           search={search}
           setSearch={setSearch}
           price={price}

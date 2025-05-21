@@ -1,9 +1,14 @@
-import Events from '../major/events';
 import NavBar from '../major/nav-bar';
 import SideBar from '../major/side-bar';
 import { FetchAPI } from '../../api/util.ts';
 import { useState } from 'react';
 import { ModeId, DateString } from '../major/side-bar/types.ts';
+
+type Event = {
+  mode: string;
+  name: string;
+  location: string;
+};
 
 export default function EventLayout() {
   const [selectedModes, setSelectedModes] = useState<ModeId[]>(['music']);
@@ -12,10 +17,7 @@ export default function EventLayout() {
   const [distance, setDistance] = useState(0);
   const [date, setdate] = useState<DateString>('this month');
 
-  const events = FetchAPI('events');
-
-  const info = [];
-  for (let i = 0; i < events.length; i++) info.push(Events(events[i]));
+  const events = FetchAPI('events') || [];
 
   return (
     <div className="flex flex-col min-h-screen ">
@@ -46,8 +48,13 @@ export default function EventLayout() {
           <p>max: £{price}</p>
           <p>max: {distance}km</p>
           <p>{date}</p>
-          {events.map((event, index) => (
-            <Events key={index} {...event} />
+          {/* REPLACE WITH ACTUAL EVENTS */}
+          {events.map((event: Event, index) => (
+            <div key={index} className="p-4 border-b border-text">
+              <p className="text-lg font-bold">{event.mode}</p>
+              <p className="text-md">{event.name}</p>
+              <p className="text-md">{event.location}</p>
+            </div>
           ))}
         </main>
       </div>

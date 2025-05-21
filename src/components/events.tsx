@@ -1,7 +1,3 @@
-export default function event(info: object) {
-  return (
-    <h2>
-      {info._id} - {info.name}
-    </h2>
-  );
+export default function event() {
+  return <h2>events</h2>;
 }

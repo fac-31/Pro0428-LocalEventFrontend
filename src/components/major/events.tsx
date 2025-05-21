@@ -1,8 +1,4 @@
 //component for events data
-export default function Events(info) {
-  return (
-    <h2>
-      {info._id} - {info.name}
-    </h2>
-  );
+export default function Events() {
+  return <h2>events</h2>;
 }
