@@ -1,24 +1,19 @@
-import { useEffect, useState } from 'react';
-import axios from 'axios';
+import { useState, useEffect } from 'react';
+import { getAllEvents } from '../api/services/events';
+import { Event } from '../types/Event';
 
-export const useEvents = () => {
-  const [events, setEvents] = useState([]);
+export function useEvents() {
+  const [events, setEvents] = useState<Event[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<null | string>(null);
-
-  const API_URL = 'http://localhost:3000';
 
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        const response = await axios.get(`${API_URL}/events`);
-        setEvents(response.data);
+        const data = await getAllEvents();
+        setEvents(data);
       } catch (err) {
-        if (err instanceof Error) {
-          setError(err.message);
-        } else {
-          setError(String(err));
-        }
+        setError(err instanceof Error ? err.message : String(err));
       } finally {
         setLoading(false);
       }
@@ -28,4 +23,4 @@ export const useEvents = () => {
   }, []);
 
   return { events, loading, error };
-};
+}

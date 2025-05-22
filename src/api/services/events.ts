@@ -1,12 +1,7 @@
 import axios from 'axios';
+import { Event } from '../../types/Event';
 
-const getAll = async () => {
-  const response = await axios.get('/events');
-  return response.data;
-};
+const API_URL = 'http://localhost:3000';
 
-const events = {
-  getAll,
-};
-
-export default events;
+export const getAllEvents = () =>
+  axios.get<Event[]>(`${API_URL}/events`).then((res) => res.data);

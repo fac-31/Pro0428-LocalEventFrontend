@@ -5,6 +5,7 @@ interface Props {
 }
 
 export default function Events({ events }: Props) {
+  console.log(events);
   return (
     <div>
       {events.map((event) => (

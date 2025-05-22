@@ -7,6 +7,7 @@ import SideBar from '../major/side-bar';
 export default function EventLayout() {
   const { events, loading, error } = useEvents();
 
+  console.log(events);
   return (
     <div className="flex-col">
       <header>
