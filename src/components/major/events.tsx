@@ -1,8 +1,15 @@
-//component for events data
-export default function Events(info) {
+import { Event } from '../../types/Event';
+
+interface Props {
+  events: Event[];
+}
+
+export default function Events({ events }: Props) {
   return (
-    <h2>
-      {info._id} - {info.name}
-    </h2>
+    <div>
+      {events.map((event) => (
+        <h2 key={event._id}>{event.name}</h2>
+      ))}
+    </div>
   );
 }
