@@ -1,10 +1,11 @@
-import { z } from 'npm:zod';
+import { z } from 'zod';
 
 const eventModeEnum = z.enum(['Music', 'Charity', 'Sports', 'Other']);
 
 export type EventMode = z.infer<typeof eventModeEnum>;
 
 export const eventSchema = z.object({
+  _id: z.string(),
   mode: eventModeEnum,
   name: z.string(),
   description: z.string(),
