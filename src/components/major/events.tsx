@@ -1,5 +1,7 @@
 //component for events data
-export default function Events(info) {
+import { Event } from '../../models/event.model.ts';
+
+export default function Events(info: Event) {
   return (
     <h2>
       {info._id} - {info.name}
