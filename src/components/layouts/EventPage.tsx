@@ -6,11 +6,12 @@ import NavBar from '../major/nav-bar';
 import SideBar from '../major/side-bar';
 
 import { FetchAPI } from '../../api/util.ts';
+import { Event } from '../../models/event.model.ts';
 
 export default function EventLayout() {
   const events = FetchAPI('events');
 
-  const info: array = [];
+  const info: Array<Event> = [];
   for (let i = 0; i < events.length; i++) info.push(Events(events[i]));
 
   return (
