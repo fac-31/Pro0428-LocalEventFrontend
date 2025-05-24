@@ -16,21 +16,21 @@ export function SendRouterAPI(
 ) {
   const [result, setResult] = useState([]);
 
-  const headers = {};
   const id = useContext(TokenContext);
-  if (id.token) headers['Authorization'] = `Bearer ${id.token}`;
 
   useEffect(() => {
     fetch(GetFullURL(url), {
       method: method,
       body: body,
-      headers: headers,
+      headers: {
+        Authorization: id.token ? `Bearer ${id.token}` : '',
+      },
     })
       .then((res) => res.json())
       .then((res) => {
         setResult(res);
       });
-  }, [url]);
+  }, [url, method, body, id]);
 
   return result;
 }
@@ -38,7 +38,7 @@ export function SendRouterAPI(
 export async function SendClientAPI(
   url: string,
   method: string,
-  body: URLSearchParams | null = null,
+  body: { [key: string]: string },
 ) {
   const result = await fetch(GetFullURL(url), {
     method: method,

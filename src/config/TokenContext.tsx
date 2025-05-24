@@ -3,7 +3,7 @@ import { createContext, Dispatch, SetStateAction } from 'react';
 // Define the shape of our context value
 type TokenContextType = {
   token: string | null;
-  setToken: Dispatch<SetStateAction<string>>;
+  setToken: Dispatch<SetStateAction<string | null>>;
 };
 
 // Create context with a default value that matches the shape
