@@ -5,6 +5,8 @@ import { useNavigate } from 'react-router';
 
 import { SendClientAPI } from '../api/util.ts';
 
+import '../styles/login.css';
+
 export default function Login() {
   const { setToken } = useContext(TokenContext);
   const navigate = useNavigate();
@@ -28,21 +30,17 @@ export default function Login() {
         <DirectButton text={'HOME'} route={'/'} />
         <div className="flex">
           <form className="inline-block m-auto" onSubmit={handleLogin}>
-            <div className="my-2">
-              <label className="pr-4" htmlFor="username">
-                Username
-              </label>
+            <div>
+              <label htmlFor="username">Username</label>
               <input type="text" id="username" name="username"></input>
             </div>
 
-            <div className="my-2">
-              <label className="pr-4" htmlFor="password">
-                Password
-              </label>
+            <div>
+              <label htmlFor="password">Password</label>
               <input type="password" id="password" name="password"></input>
             </div>
 
-            <div className="my-2">
+            <div>
               <input
                 className="uppercase w-full"
                 type="submit"
