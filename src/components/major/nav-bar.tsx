@@ -1,19 +1,19 @@
 import DirectButton from '../minor/DirectButton';
 import { useContext, useState } from 'react';
-import { IdContext } from '../../config/IdContext';
+import { TokenContext } from '../../config/TokenContext';
 import { useLocation } from 'react-router';
 import '../../styles/navbar.css';
 
 export default function NavBar() {
   const pathname: string = useLocation().pathname;
-  const { id } = useContext(IdContext);
+  const { token } = useContext(TokenContext);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   function toggleMenu() {
     setIsMenuOpen(!isMenuOpen);
   }
 
-  if (id) {
+  if (token) {
     return (
       <div className="border-b-3 input">
         {/* Desktop navbar */}

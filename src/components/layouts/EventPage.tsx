@@ -1,14 +1,11 @@
+import { ReactNode, useState } from 'react';
+
+import Events from '../major/events';
 import NavBar from '../major/nav-bar';
 import SideBar from '../major/side-bar';
-import { FetchAPI } from '../../api/util.ts';
-import { useState } from 'react';
-import { ModeId, DateString } from '../major/side-bar/types.ts';
 
-type Event = {
-  mode: string;
-  name: string;
-  location: string;
-};
+import { GetRouterAPI } from '../../api/util.ts';
+import { ModeId, DateString } from '../major/side-bar/types.ts';
 
 export default function EventLayout() {
   const [selectedModes, setSelectedModes] = useState<ModeId[]>(['music']);
@@ -16,8 +13,10 @@ export default function EventLayout() {
   const [price, setPrice] = useState(0);
   const [distance, setDistance] = useState(0);
   const [date, setdate] = useState<DateString>('this month');
+  const events = GetRouterAPI('events');
 
-  const events = FetchAPI('events') || [];
+  const infos: Array<ReactNode> = [];
+  for (let i = 0; i < events.length; i++) infos.push(Events(events[i]));
 
   return (
     <div className="flex flex-col min-h-screen ">
@@ -40,23 +39,7 @@ export default function EventLayout() {
             setdate={setdate}
           />
         </div>
-
-        <main className="flex-1 overflow-y-auto mt-10 ml-15 text-center">
-          For dev purposes only. Delete me when implementing events
-          <p>{selectedModes}</p>
-          <p>{search}</p>
-          <p>max: £{price}</p>
-          <p>max: {distance}km</p>
-          <p>{date}</p>
-          {/* REPLACE WITH ACTUAL EVENTS */}
-          {events.map((event: Event, index) => (
-            <div key={index} className="p-4 border-b border-text">
-              <p className="text-lg font-bold">{event.mode}</p>
-              <p className="text-md">{event.name}</p>
-              <p className="text-md">{event.location}</p>
-            </div>
-          ))}
-        </main>
+        <div className="flex grow">{infos}</div>
       </div>
     </div>
   );

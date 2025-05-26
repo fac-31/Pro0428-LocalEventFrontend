@@ -1,17 +1,26 @@
 import DirectButton from '../components/minor/DirectButton';
 import { useContext } from 'react';
-import { IdContext } from '../config/IdContext';
+import { TokenContext } from '../config/TokenContext.tsx';
 import { useNavigate } from 'react-router';
 
+import { SendClientAPI } from '../api/util.ts';
+
 export default function Login() {
-  const { setId } = useContext(IdContext);
+  const { setToken } = useContext(TokenContext);
   const navigate = useNavigate();
 
-  const handleLogin = (e: React.FormEvent) => {
+  async function handleLogin(e: React.FormEvent) {
     e.preventDefault(); // Prevent form from submitting normally
-    setId(true);
+
+    const result = await SendClientAPI('auth/login', 'post', {
+      username: (document.getElementById('username') as HTMLInputElement).value,
+      password: (document.getElementById('password') as HTMLInputElement).value,
+    });
+
+    setToken(result.token);
+
     navigate('/userhome'); // Redirect to user home page
-  };
+  }
 
   return (
     <div className="flex min-h-screen">
