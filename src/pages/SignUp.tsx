@@ -22,9 +22,14 @@ export default function SignUp() {
       password: (document.getElementById('password') as HTMLInputElement).value,
     });
 
-    setToken(result.token);
-
-    navigate('/userhome'); // Redirect to user home page
+    if (result.token) {
+      setToken(result.token);
+      navigate('/userhome'); // Redirect to user home page
+    } else if (result.error) {
+      alert(result.error);
+    } else {
+      alert('Unexpected error occured');
+    }
   }
 
   return (
