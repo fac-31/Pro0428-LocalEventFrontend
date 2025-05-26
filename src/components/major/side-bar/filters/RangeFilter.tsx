@@ -1,12 +1,12 @@
-import { NumberFilterProps } from '../types';
+import { RangeFilterProps } from '../types';
 
-export const NumberFilter = ({
+export const RangeFilter = ({
   icon: Icon,
   label,
   value,
   max,
   onChange,
-}: NumberFilterProps) => {
+}: RangeFilterProps) => {
   return (
     <div className="hover:bg-input-bg p-2 rounded-md">
       <div className="flex items-center gap-2 mb-1 ">

@@ -1,6 +1,6 @@
 import { Calendar, HandCoins, MapPin } from 'lucide-react';
 import { SearchFilter } from './SearchFilter';
-import { NumberFilter } from './NumberFilter';
+import { RangeFilter } from './RangeFilter';
 import { DropDownFilter } from './DropDownFilter';
 import { FiltersProps } from '../types';
 
@@ -34,7 +34,7 @@ export const Filters = ({
         ]}
       />
 
-      <NumberFilter
+      <RangeFilter
         icon={HandCoins}
         label="Max Price (£)"
         value={price}
@@ -43,7 +43,7 @@ export const Filters = ({
         onChange={setPrice}
       />
 
-      <NumberFilter
+      <RangeFilter
         icon={MapPin}
         label="Max Distance (km)"
         value={distance}

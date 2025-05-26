@@ -53,7 +53,7 @@ export type GenericFilterProps<T> = BaseFilterProps & {
   onChange: Dispatch<SetStateAction<T>>;
 };
 
-export type NumberFilterProps = GenericFilterProps<number> & {
+export type RangeFilterProps = GenericFilterProps<number> & {
   max: number;
   suffix: string;
 };
