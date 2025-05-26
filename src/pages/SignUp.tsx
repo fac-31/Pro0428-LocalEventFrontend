@@ -1,14 +1,38 @@
 import DirectButton from '../components/minor/DirectButton';
+import { useContext } from 'react';
+import { TokenContext } from '../config/TokenContext.tsx';
+import { useNavigate } from 'react-router';
+
+import { SendClientAPI } from '../api/util.ts';
 
 import '../styles/login.css';
 
 export default function SignUp() {
+  const { setToken } = useContext(TokenContext);
+  const navigate = useNavigate();
+
+  async function handleSignup(e: React.FormEvent) {
+    e.preventDefault(); // Prevent form from submitting normally
+
+    const result = await SendClientAPI('auth/signup', 'post', {
+      name_first: (document.getElementById('name_first') as HTMLInputElement).value,
+      name_last: (document.getElementById('name_last') as HTMLInputElement).value,
+      email: (document.getElementById('email') as HTMLInputElement).value,
+      username: (document.getElementById('username') as HTMLInputElement).value,
+      password: (document.getElementById('password') as HTMLInputElement).value,
+    });
+
+    setToken(result.token);
+
+    navigate('/userhome'); // Redirect to user home page
+  }
+
   return (
     <div className="flex min-h-screen">
       <div className="m-auto min-w-1/2 border-b-3 border-t-3">
         <DirectButton text={'HOME'} route={'/'} />
         <div className="flex">
-          <form className="inline-block m-auto">
+          <form className="inline-block m-auto" onSubmit={handleSignup}>
             <div>
               <label htmlFor="name_first">First Name</label>
               <input type="text" id="name_first" name="name_first"></input>
