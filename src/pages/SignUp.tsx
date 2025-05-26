@@ -14,13 +14,13 @@ export default function SignUp() {
   async function handleSignup(e: React.FormEvent) {
     e.preventDefault(); // Prevent form from submitting normally
 
-    const result = await SendClientAPI('auth/signup', 'post', {
-      name_first: (document.getElementById('name_first') as HTMLInputElement).value,
-      name_last: (document.getElementById('name_last') as HTMLInputElement).value,
-      email: (document.getElementById('email') as HTMLInputElement).value,
-      username: (document.getElementById('username') as HTMLInputElement).value,
-      password: (document.getElementById('password') as HTMLInputElement).value,
-    });
+    const body: { [key: string]: string } = {};
+    const inputs = ['name_first', 'name_last', 'email', 'username', 'password'];
+
+    for (const input in inputs) // Loop through each inputs and get its value
+      body[input] = (document.getElementById(input) as HTMLInputElement).value;
+
+    const result = await SendClientAPI('auth/signup', 'post', body);
 
     if (result.token) {
       setToken(result.token);
