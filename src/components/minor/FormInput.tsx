@@ -1,5 +1,3 @@
-import { Dispatch, SetStateAction } from 'react';
-
 type InputType = 'text' | 'email' | 'password';
 
 interface FormInputProps {
