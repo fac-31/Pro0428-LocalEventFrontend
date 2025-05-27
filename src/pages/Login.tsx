@@ -1,4 +1,5 @@
 import DirectButton from '../components/minor/DirectButton';
+import FormInput from '../components/minor/FormInput';
 import { useContext, useState } from 'react';
 import { TokenContext } from '../config/TokenContext.tsx';
 import { useNavigate } from 'react-router';
@@ -38,26 +39,17 @@ export default function Login() {
       <div className="m-auto min-w-1/2 border-b-3 border-t-3">
         <DirectButton text={'HOME'} route={'/'} />
         <div className="flex">
-          <form className="inline-block m-auto" onSubmit={handleLogin}>
-            <div>
-              <label htmlFor="username">Username</label>
-              <input
-                type="text"
-                id="username"
-                name="username"
-                onChange={handleChange}
-              ></input>
-            </div>
-
-            <div>
-              <label htmlFor="password">Password</label>
-              <input
-                type="password"
-                id="password"
-                name="password"
-                onChange={handleChange}
-              ></input>
-            </div>
+          <form
+            className="inline-block m-auto"
+            onChange={handleChange}
+            onSubmit={handleLogin}
+          >
+            <FormInput name="username" label="Username"></FormInput>
+            <FormInput
+              name="password"
+              label="Password"
+              type="password"
+            ></FormInput>
 
             <div>
               <input

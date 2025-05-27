@@ -1,4 +1,5 @@
 import DirectButton from '../components/minor/DirectButton';
+import FormInput from '../components/minor/FormInput';
 import { useContext, useState } from 'react';
 import { TokenContext } from '../config/TokenContext.tsx';
 import { useNavigate } from 'react-router';
@@ -38,56 +39,20 @@ export default function SignUp() {
       <div className="m-auto min-w-1/2 border-b-3 border-t-3">
         <DirectButton text={'HOME'} route={'/'} />
         <div className="flex">
-          <form className="inline-block m-auto" onSubmit={handleSignup}>
-            <div>
-              <label htmlFor="name_first">First Name</label>
-              <input
-                type="text"
-                id="name_first"
-                name="name_first"
-                onChange={handleChange}
-              ></input>
-            </div>
-
-            <div>
-              <label htmlFor="name_last">Last Name</label>
-              <input
-                type="text"
-                id="name_last"
-                name="name_last"
-                onChange={handleChange}
-              ></input>
-            </div>
-
-            <div>
-              <label htmlFor="email">Email</label>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                onChange={handleChange}
-              ></input>
-            </div>
-
-            <div>
-              <label htmlFor="username">Username</label>
-              <input
-                type="text"
-                id="username"
-                name="username"
-                onChange={handleChange}
-              ></input>
-            </div>
-
-            <div>
-              <label htmlFor="password">Password</label>
-              <input
-                type="password"
-                id="password"
-                name="password"
-                onChange={handleChange}
-              ></input>
-            </div>
+          <form
+            className="inline-block m-auto"
+            onChange={handleChange}
+            onSubmit={handleSignup}
+          >
+            <FormInput name="name_first" label="First Name"></FormInput>
+            <FormInput name="name_last" label="Last Name"></FormInput>
+            <FormInput name="email" label="Email" type="email"></FormInput>
+            <FormInput name="username" label="Username"></FormInput>
+            <FormInput
+              name="password"
+              label="Password"
+              type="password"
+            ></FormInput>
 
             <div>
               <input
