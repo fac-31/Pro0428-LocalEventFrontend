@@ -1,5 +1,5 @@
 import DirectButton from '../components/minor/DirectButton';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { TokenContext } from '../config/TokenContext.tsx';
 import { useNavigate } from 'react-router';
 
@@ -8,16 +8,20 @@ import { SendClientAPI } from '../api/util.ts';
 import '../styles/login.css';
 
 export default function Login() {
+  const [formData, setFormData] = useState({});
+
+  const handleChange = (e: React.FormEvent) => {
+    const { name, value } = e.target as HTMLInputElement;
+    setFormData((prevState) => ({ ...prevState, [name]: value }));
+  };
+
   const { setToken } = useContext(TokenContext);
   const navigate = useNavigate();
 
   async function handleLogin(e: React.FormEvent) {
     e.preventDefault(); // Prevent form from submitting normally
 
-    const result = await SendClientAPI('auth/login', 'post', {
-      username: (document.getElementById('username') as HTMLInputElement).value,
-      password: (document.getElementById('password') as HTMLInputElement).value,
-    });
+    const result = await SendClientAPI('auth/login', 'post', formData);
 
     if (result.token) {
       setToken(result.token);
@@ -37,12 +41,22 @@ export default function Login() {
           <form className="inline-block m-auto" onSubmit={handleLogin}>
             <div>
               <label htmlFor="username">Username</label>
-              <input type="text" id="username" name="username"></input>
+              <input
+                type="text"
+                id="username"
+                name="username"
+                onChange={handleChange}
+              ></input>
             </div>
 
             <div>
               <label htmlFor="password">Password</label>
-              <input type="password" id="password" name="password"></input>
+              <input
+                type="password"
+                id="password"
+                name="password"
+                onChange={handleChange}
+              ></input>
             </div>
 
             <div>
