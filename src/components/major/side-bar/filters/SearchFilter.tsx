@@ -3,7 +3,7 @@ import type { SearchFilterProps } from '../types';
 
 export const SearchFilter: React.FC<SearchFilterProps> = ({
   search,
-  setSearch,
+  onChange,
 }) => {
   return (
     <div className="flex items-center gap-2 w-full hover:bg-input-bg p-2 rounded-md">
@@ -11,7 +11,7 @@ export const SearchFilter: React.FC<SearchFilterProps> = ({
       <input
         type="text"
         value={search}
-        onChange={(e) => setSearch(e.target.value)}
+        onChange={(e) => onChange(e.target.value)}
         className="flex-1 bg-transparent border border-muted outline-none text-sm text-white px-2 py-1 rounded"
       />
     </div>

@@ -1,5 +1,6 @@
 import { LucideIcon } from 'lucide-react';
-import { Dispatch, SetStateAction } from 'react';
+
+// --- Modes & Filters ---
 
 export type ModeId = 'music' | 'charity' | 'sports' | 'other';
 
@@ -11,22 +12,32 @@ export type Mode = {
 
 export type DateString = 'today' | 'this week' | 'this month' | 'this year';
 
-export type SideBarProps = {
+export type FiltersState = {
   selectedModes: ModeId[];
-  setSelectedModes: Dispatch<SetStateAction<ModeId[]>>;
   search: string;
-  setSearch: Dispatch<SetStateAction<string>>;
   price: number;
-  setPrice: Dispatch<SetStateAction<number>>;
   distance: number;
-  setDistance: Dispatch<SetStateAction<number>>;
   date: DateString;
-  setdate: Dispatch<SetStateAction<DateString>>;
 };
+
+// --- Props for Main Components ---
+
+export type SideBarProps = {
+  filters: FiltersState;
+  updateFilters: (updates: Partial<FiltersState>) => void;
+};
+
+export type FiltersProps = {
+  filters: FiltersState;
+  updateFilters: (updates: Partial<FiltersState>) => void;
+  className?: string;
+};
+
+// --- Filter Component Props ---
 
 export type MenuButtonProps = {
   open: boolean;
-  setOpen: Dispatch<SetStateAction<boolean>>;
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 export type ModeButtonsProps = {
@@ -36,13 +47,6 @@ export type ModeButtonsProps = {
   open: boolean;
 };
 
-export type FiltersProps = Omit<
-  SideBarProps,
-  'selectedModes' | 'setSelectedModes'
-> & {
-  className?: string;
-};
-
 export type BaseFilterProps = {
   icon: LucideIcon;
   label: string;
@@ -50,7 +54,7 @@ export type BaseFilterProps = {
 
 export type GenericFilterProps<T> = BaseFilterProps & {
   value: T;
-  onChange: Dispatch<SetStateAction<T>>;
+  onChange: (value: T) => void;
 };
 
 export type RangeFilterProps = GenericFilterProps<number> & {
@@ -65,5 +69,5 @@ export type DropDownFilterProps<T extends string = string> =
 
 export type SearchFilterProps = {
   search: string;
-  setSearch: Dispatch<SetStateAction<string>>;
+  onChange: (value: string) => void;
 };

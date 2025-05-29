@@ -6,26 +6,25 @@ import { FiltersProps } from '../types';
 
 export const Filters = ({
   className,
-  search,
-  setSearch,
-  price,
-  setPrice,
-  distance,
-  setDistance,
-  date,
-  setdate,
+  filters,
+  updateFilters,
 }: FiltersProps) => {
+  const { search, price, distance, date } = filters;
+
   return (
     <div className={className}>
       <hr className="w-full border-t border-muted" />
 
-      <SearchFilter search={search} setSearch={setSearch} />
+      <SearchFilter
+        search={search}
+        onChange={(val) => updateFilters({ search: val })}
+      />
 
       <DropDownFilter
         icon={Calendar}
         label="Pick a date"
         value={date}
-        onChange={setdate}
+        onChange={(val) => updateFilters({ date: val })}
         options={[
           { value: 'today', label: 'Today' },
           { value: 'this week', label: 'This week' },
@@ -40,7 +39,7 @@ export const Filters = ({
         value={price}
         max={50}
         suffix="£"
-        onChange={setPrice}
+        onChange={(val) => updateFilters({ price: val })}
       />
 
       <RangeFilter
@@ -49,7 +48,7 @@ export const Filters = ({
         value={distance}
         max={20}
         suffix="km"
-        onChange={setDistance}
+        onChange={(val) => updateFilters({ distance: val })}
       />
     </div>
   );

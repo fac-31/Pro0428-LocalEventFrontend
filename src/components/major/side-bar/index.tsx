@@ -3,8 +3,7 @@ import { Music, Bike, HelpingHand, Ellipsis } from 'lucide-react';
 import { MenuButton } from './MenuButton';
 import { ModeButtons } from './ModeButtons';
 import { Filters } from './filters';
-
-import { SideBarProps, ModeId, Mode } from './types';
+import { Mode, ModeId, FiltersProps } from './types';
 
 const modes: Mode[] = [
   { id: 'music', label: 'MUSIC', icon: Music },
@@ -13,25 +12,16 @@ const modes: Mode[] = [
   { id: 'other', label: 'OTHER', icon: Ellipsis },
 ];
 
-const SideBar = ({
-  selectedModes,
-  setSelectedModes,
-  search,
-  setSearch,
-  price,
-  setPrice,
-  distance,
-  setDistance,
-  date,
-  setdate,
-}: SideBarProps) => {
+const SideBar = ({ filters, updateFilters }: FiltersProps) => {
   const [open, setOpen] = useState(false);
   const sidebarRef = useRef<HTMLDivElement>(null);
 
   const toggleModeSelect = (id: ModeId) => {
-    setSelectedModes((prev) =>
-      prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id],
-    );
+    updateFilters({
+      selectedModes: filters.selectedModes.includes(id)
+        ? filters.selectedModes.filter((item) => item !== id)
+        : [...filters.selectedModes, id],
+    });
   };
 
   useEffect(() => {
@@ -63,21 +53,15 @@ const SideBar = ({
       <MenuButton setOpen={setOpen} open={open} />
       <ModeButtons
         modes={modes}
-        selectedModes={selectedModes}
+        selectedModes={filters.selectedModes}
         toggleModeSelect={toggleModeSelect}
         open={open}
       />
       {open && (
         <Filters
           className="flex flex-col px-2 gap-6 animate-fade-in animate-fade-in-left"
-          search={search}
-          setSearch={setSearch}
-          price={price}
-          setPrice={setPrice}
-          distance={distance}
-          setDistance={setDistance}
-          date={date}
-          setdate={setdate}
+          filters={filters}
+          updateFilters={updateFilters}
         />
       )}
     </div>
