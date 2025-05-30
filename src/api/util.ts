@@ -40,7 +40,7 @@ export async function SendClientAPI(
   method: string,
   body: { [key: string]: string },
 ) {
-  const result = await fetch(GetFullURL(url), {
+  const result: Response = await fetch(GetFullURL(url), {
     method: method,
     body: JSON.stringify(body),
   });

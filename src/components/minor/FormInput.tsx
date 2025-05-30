@@ -14,7 +14,7 @@ export default function FormInput({
   return (
     <div>
       <label htmlFor={name}>{label}</label>
-      <input type={type} id={name} name={name}></input>
+      <input type={type} id={name} name={name} required></input>
     </div>
   );
 }
