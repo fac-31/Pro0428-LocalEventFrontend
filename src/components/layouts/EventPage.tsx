@@ -1,17 +1,17 @@
-//import { Children } from 'react';
+import { ReactNode } from 'react';
 
 import CategoryBar from '../major/category-bar';
 import Events from '../major/events';
 import NavBar from '../major/nav-bar';
 import SideBar from '../major/side-bar';
 
-import { FetchAPI } from '../../api/util.ts';
+import { GetRouterAPI } from '../../api/util.ts';
 
 export default function EventLayout() {
-  const events = FetchAPI('events');
+  const events = GetRouterAPI('events');
 
-  const info: array = [];
-  for (let i = 0; i < events.length; i++) info.push(Events(events[i]));
+  const infos: Array<ReactNode> = [];
+  for (let i = 0; i < events.length; i++) infos.push(Events(events[i]));
 
   return (
     <div className="flex-col">
@@ -23,7 +23,7 @@ export default function EventLayout() {
         <div className="mr-5 flex shrink">
           <SideBar />
         </div>
-        <div className="flex grow">{info}</div>
+        <div className="flex grow">{infos}</div>
       </div>
     </div>
   );
