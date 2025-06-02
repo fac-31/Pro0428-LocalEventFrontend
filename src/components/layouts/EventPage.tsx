@@ -1,32 +1,45 @@
-import { ReactNode } from 'react';
-
-import CategoryBar from '../major/category-bar';
+import { ReactNode, useState } from 'react';
 import Events from '../major/events';
 import NavBar from '../major/nav-bar';
 import SideBar from '../major/side-bar';
-
 import { GetRouterAPI } from '../../api/util.ts';
+import { FiltersState } from '../major/side-bar/types.ts';
 
 export default function EventLayout() {
+  const [filters, setFilters] = useState<FiltersState>({
+    selectedModes: ['music'],
+    search: '',
+    price: 50,
+    distance: 20,
+    date: 'this month',
+  });
+
+  const updateFilters = (updates: Partial<FiltersState>) => {
+    setFilters((prev) => ({
+      ...prev,
+      ...updates,
+    }));
+  };
+
   const events = GetRouterAPI('events');
 
   const infos: Array<ReactNode> = [];
-  for (let i = 0; i < events.length; i++) infos.push(Events(events[i]));
+  for (let i = 0; i < events.length; i++) {
+    infos.push(Events(events[i]));
+  }
 
   return (
-    <div className="flex-col">
-      <div className="">
+    <div className="flex flex-col min-h-screen">
+      <div className="fixed top-0 left-0 w-full z-50 bg-accent">
         <NavBar />
-        <CategoryBar />
       </div>
-      <div className="flex justify-around">
-        <div className="mr-5 flex shrink">
-          <SideBar />
+
+      <div className="flex flex-1">
+        <div className="h-full border-r bg-accent">
+          <SideBar filters={filters} updateFilters={updateFilters} />
         </div>
         <div className="flex grow">{infos}</div>
       </div>
     </div>
   );
 }
-
-//LAST STOP - about to use tailwind to structure layout of events page
