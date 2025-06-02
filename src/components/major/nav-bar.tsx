@@ -1,4 +1,5 @@
 import DirectButton from '../minor/DirectButton';
+import ThemeButton from '../minor/ThemeButton';
 import { useContext, useState } from 'react';
 import { TokenContext } from '../../config/TokenContext';
 import { useLocation } from 'react-router';
@@ -18,7 +19,7 @@ export default function NavBar() {
       <div className="border-b-3 input">
         {/* Desktop navbar */}
         <div className="hidden sm:flex justify-between items-center">
-          <DirectButton text={'LIGHT MODE'} route={'/userhome'} />
+          <ThemeButton />
           <div className="flex justify-between">
             <DirectButton
               text={'HOMEPAGE'}
@@ -77,7 +78,7 @@ export default function NavBar() {
       <div className="border-b-3 input">
         {/* Navbar before login */}
         <div className=" flex justify-between items-center">
-          <DirectButton text={'LIGHT MODE'} route={'/'} />
+          <ThemeButton />
           <DirectButton text={'LOGIN'} route={'/login'} />
         </div>
       </div>
