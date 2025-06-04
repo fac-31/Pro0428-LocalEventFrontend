@@ -1,16 +1,11 @@
 import axios from 'axios';
 import api from '../api';
-import { User } from '../../auth/types';
+import { SafeUser, UserLogInInput, UserSignUpInput } from 'models/user.model';
 
 export interface MeResponse {
   message: string;
-  user: User;
+  user: SafeUser;
 }
-
-type LoginBody = {
-  username: string;
-  password: string;
-};
 
 type LoginErrorDetails = {
   formErrors: string[];
@@ -22,14 +17,6 @@ type LoginErrorDetails = {
 export type LoginResult = {
   token: string | null;
   errors: LoginErrorDetails | null;
-};
-
-type SignupBody = {
-  username: string;
-  password: string;
-  email: string;
-  name_first: string;
-  name_last: string;
 };
 
 type SignupSuccessResponse = {
@@ -63,7 +50,9 @@ export const getMe = async (): Promise<User | null> => {
   }
 };
 
-export const login = async (credentials: LoginBody): Promise<LoginResult> => {
+export const login = async (
+  credentials: UserLogInInput,
+): Promise<LoginResult> => {
   try {
     const { data } = await api.post<{ token: string }>(
       '/auth/login',
@@ -94,7 +83,9 @@ export const logout = async (): Promise<void> => {
   }
 };
 
-export const signup = async (formData: SignupBody): Promise<SignupResult> => {
+export const signup = async (
+  formData: UserSignUpInput,
+): Promise<SignupResult> => {
   try {
     const { data } = await api.post<
       SignupSuccessResponse | { error: string; errors?: SignupErrorDetails }
