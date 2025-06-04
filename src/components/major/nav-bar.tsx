@@ -51,7 +51,11 @@ export default function NavBar() {
                 route={'/userprofile'}
                 pathname={pathname}
               />
-              <DirectButton text={'LOGOUT'} onClick={handleLogout} />
+              <DirectButton
+                text={'LOGOUT'}
+                onClick={handleLogout}
+                pathname={pathname}
+              />
             </>
           ) : (
             <DirectButton text={'LOGIN'} route={'/login'} pathname={pathname} />
