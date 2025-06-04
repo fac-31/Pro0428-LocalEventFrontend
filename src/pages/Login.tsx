@@ -5,9 +5,14 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router';
 import { login } from '../api/services/auth.ts';
 import { useAuth } from '../auth/useAuth.tsx';
+import { UserLogInInput } from 'models/user.model.ts';
 
 export default function Login() {
-  const [formData, setFormData] = useState({ username: '', password: '' });
+  const [formData, setFormData] = useState<UserLogInInput>({
+    username: '',
+    password: '',
+  });
+
   const [errorMessage, setErrorMessage] = useState('');
   const navigate = useNavigate();
   const { refreshUser } = useAuth();
