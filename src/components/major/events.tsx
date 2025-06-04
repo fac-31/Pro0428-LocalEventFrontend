@@ -1,10 +1,10 @@
 //component for events data
-import { Event } from '../../models/event.model.ts';
+import { Event } from 'models/event.model.ts';
 
 export default function Events(info: Event) {
   return (
     <h2>
-      {info._id} - {info.name}
+      {info.mode} - {info.name}
     </h2>
   );
 }

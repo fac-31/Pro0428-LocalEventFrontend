@@ -20,7 +20,12 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
-    "noUncheckedSideEffectImports": true
+    "noUncheckedSideEffectImports": true,
+    
+    "baseUrl": ".",
+    "paths": {
+      "models/*": ["shared/src/models/*"]
+    }
   },
-  "include": ["src"]
+  "include": ["src", "shared/src/models"]
 }
