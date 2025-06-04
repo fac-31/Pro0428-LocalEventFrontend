@@ -18,7 +18,6 @@ export default function UserProfile() {
             Name: {user.name_first} {user.name_last}
           </h1>
           <h1>Role: {user.role}</h1>
-          <h1>Saved Events: {user.saved_events}</h1>
         </div>
       )}
 

@@ -2,14 +2,14 @@
 import { ReactNode, useEffect, useState } from 'react';
 import { AuthContext } from './AuthContext';
 import { getMe } from '../api/services/auth';
-import { User } from './types';
+import { SafeUser } from 'models/user.model';
 
 type Props = {
   children: ReactNode;
 };
 
 export const AuthProvider = ({ children }: Props) => {
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<SafeUser | null>(null);
   const [loading, setLoading] = useState(true);
 
   const refreshUser = async () => {

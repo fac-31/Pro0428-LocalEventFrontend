@@ -1,8 +1,8 @@
 import { createContext } from 'react';
-import { User } from './types';
+import { SafeUser } from 'models/user.model';
 
 export type AuthContextType = {
-  user: User | null;
+  user: SafeUser | null;
   loading: boolean;
   refreshUser: () => Promise<void>;
 };

@@ -38,7 +38,7 @@ type SignupResult = {
   errors?: SignupErrorDetails;
 };
 
-export const getMe = async (): Promise<User | null> => {
+export const getMe = async (): Promise<SafeUser | null> => {
   try {
     const { data } = await api.get<MeResponse>('/auth/me');
     return data.user;

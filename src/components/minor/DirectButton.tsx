@@ -2,7 +2,7 @@ import { Link } from 'react-router';
 
 interface DirectButtonProps {
   text: string;
-  route?: string; // make optional if using onClick only
+  route?: string;
   pathname?: string;
   onClick?: () => void;
 }

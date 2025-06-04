@@ -44,18 +44,7 @@ export default function SignUp() {
         setErrorMessage(JSON.stringify(errors));
       }
     } else if (result.errors) {
-      const { formErrors, fieldErrors } = result.errors;
-      const fieldMessages = Object.entries(fieldErrors)
-        .map(([field, msgs]) => `${field}: ${msgs.join(', ')}`)
-        .join(' | ');
-      const combined = [...formErrors, fieldMessages]
-        .filter(Boolean)
-        .join(' | ');
-      setErrorMessage(combined || 'Signup failed. Please try again.');
-    } else if (result.errorMessage) {
-      setErrorMessage(result.errorMessage);
-    } else {
-      setErrorMessage('Unexpected error occurred.');
+      setErrorMessage(JSON.stringify(result.errors));
     }
   }
 
