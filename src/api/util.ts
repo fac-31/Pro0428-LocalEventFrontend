@@ -34,16 +34,3 @@ export function SendRouterAPI(
 
   return result;
 }
-
-export async function SendClientAPI(
-  url: string,
-  method: string,
-  body: { [key: string]: string },
-) {
-  const result: Response = await fetch(GetFullURL(url), {
-    method: method,
-    body: JSON.stringify(body),
-  });
-
-  return await result.json();
-}
