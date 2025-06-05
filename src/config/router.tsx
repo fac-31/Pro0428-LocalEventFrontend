@@ -7,6 +7,7 @@ import UserHome from '../pages/UserHome';
 import UserProfile from '../pages/UserProfile';
 import Error from '../pages/Error';
 import SavedEvents from '../pages/SavedEvents';
+import PasswordReset from '../pages/PasswordReset';
 
 const router = createBrowserRouter([
   {
@@ -32,6 +33,10 @@ const router = createBrowserRouter([
   {
     path: '/savedevents/:mode?',
     element: <SavedEvents />,
+  },
+  {
+    path: '/reset-password',
+    element: <PasswordReset />,
   },
   {
     path: '/*',
