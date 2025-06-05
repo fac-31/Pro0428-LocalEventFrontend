@@ -22,7 +22,6 @@ export default function EventLayout() {
   };
 
   const events = GetRouterAPI('events');
-
   const infos: Array<ReactNode> = [];
   for (let i = 0; i < events.length; i++) {
     infos.push(Events(events[i]));
@@ -38,7 +37,7 @@ export default function EventLayout() {
         <div className="h-full border-r bg-accent">
           <SideBar filters={filters} updateFilters={updateFilters} />
         </div>
-        <div className="flex grow">{infos}</div>
+        <div className="flex flex-col grow items-center mt-12">{infos}</div>
       </div>
     </div>
   );
