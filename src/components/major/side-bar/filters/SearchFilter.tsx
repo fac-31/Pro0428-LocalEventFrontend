@@ -12,7 +12,7 @@ export const SearchFilter: React.FC<SearchFilterProps> = ({
         type="text"
         value={search}
         onChange={(e) => onChange(e.target.value)}
-        className=" flex-1 bg-transparent border border-[var(--color-text)] outline-none text-sm px-2 py-1 rounded"
+        className=" flex-1 bg-transparent outline-none text-sm px-2 py-1 rounded"
       />
     </div>
   );

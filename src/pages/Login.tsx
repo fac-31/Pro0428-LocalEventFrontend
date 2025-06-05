@@ -53,7 +53,7 @@ export default function Login() {
 
             <div>
               <input
-                className="uppercase w-full"
+                className="uppercase w-full text-[var(--color-text)] border border-[var(--color-text)]"
                 type="submit"
                 value="Log In"
               ></input>

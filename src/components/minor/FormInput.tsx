@@ -18,7 +18,7 @@ export default function FormInput({
         type={type}
         id={name}
         name={name}
-        className="bg-[var(--color-input-bg)] outline-none"
+        className="bg-[var(--color-input-bg)] text-[var(--color-text)] outline-none"
         required
       ></input>
     </div>
