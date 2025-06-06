@@ -1,5 +1,5 @@
 //component for events data
-import { Event } from '../../models/event.model.ts';
+import { Event } from 'models/event.model.ts';
 
 export default function Events(info: Event) {
   return (
