@@ -1,7 +1,6 @@
 import { useLocation } from 'react-router';
 import { useAuth } from '../auth/useAuth';
 import { useEffect, useState } from 'react';
-import DirectButton from '../components/minor/DirectButton';
 import FormInput from '../components/minor/FormInput';
 
 export default function ResetPassword() {
