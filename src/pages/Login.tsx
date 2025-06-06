@@ -49,6 +49,7 @@ export default function Login() {
       setErrorMessage(' ');
     }, 6000);
   };
+
   async function handleLogin(e: React.FormEvent) {
     e.preventDefault();
     const { token, errors } = await login(formData);

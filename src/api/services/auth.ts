@@ -10,6 +10,9 @@ export interface MeResponse {
 export type FieldErrors = Partial<{
   username: string;
   password: string;
+  name_first: string;
+  name_last: string;
+  email: string;
 }>;
 
 export type LoginErrorDetails =
@@ -27,22 +30,31 @@ export type LoginResponse = {
   errors: LoginErrorDetails | null;
 };
 
-type SignupSuccessResponse = {
-  acknowledged: boolean;
-  insertedId: string;
-};
+export type SignupFieldErrors = Partial<{
+  email: string;
+  username: string;
+  password: string;
+}>;
 
-type SignupErrorDetails = {
-  formErrors: string[];
-  fieldErrors: FieldErrors;
-};
+export type SignupErrorDetails =
+  | {
+      type: 'dbError';
+      message: string;
+    }
+  | {
+      type: 'fieldErrors';
+      fieldErrors: SignupFieldErrors;
+    };
 
-type SignupResult = {
-  success: boolean;
-  insertedId?: string;
-  errorMessage?: string;
-  errors?: SignupErrorDetails;
-};
+export type SignupResponse =
+  | {
+      insertedId: string;
+      errors: null;
+    }
+  | {
+      insertedId: null;
+      errors: SignupErrorDetails;
+    };
 
 export const getMe = async (): Promise<SafeUser | null> => {
   try {
@@ -111,35 +123,47 @@ export const logout = async (): Promise<void> => {
 };
 
 export const signup = async (
-  formData: UserSignUpInput,
-): Promise<SignupResult> => {
+  credentials: UserSignUpInput,
+): Promise<SignupResponse> => {
   try {
-    const { data } = await api.post<
-      SignupSuccessResponse | { error: string; errors?: SignupErrorDetails }
-    >('/auth/signup', formData);
-    if ('acknowledged' in data && data.acknowledged) {
-      return { success: true, insertedId: data.insertedId };
-    }
-    if ('error' in data) {
-      return {
-        success: false,
-        errorMessage: data.error,
-        errors: data.errors,
-      };
-    }
+    const { data } = await api.post<{ insertedId: string }>(
+      '/auth/signup',
+      credentials,
+    );
     return {
-      success: false,
-      errorMessage: 'Unknown response format',
+      insertedId: data.insertedId,
+      errors: null,
     };
   } catch (error) {
-    if (axios.isAxiosError(error)) {
-      const apiError = error.response?.data;
+    if (
+      axios.isAxiosError(error) &&
+      error.response?.data?.errors?.fieldErrors
+    ) {
+      const fieldErrors = error.response.data.errors.fieldErrors;
+
       return {
-        success: false,
-        errorMessage: apiError?.error || 'Unexpected error',
-        errors: apiError?.errors,
+        insertedId: null,
+        errors: {
+          type: 'fieldErrors',
+          fieldErrors: {
+            email: fieldErrors.email,
+            username: fieldErrors.username,
+            password: fieldErrors.password,
+          },
+        },
       };
     }
+
+    if (axios.isAxiosError(error) && error.response?.data?.error) {
+      return {
+        insertedId: null,
+        errors: {
+          type: 'dbError',
+          message: error.response.data.error,
+        },
+      };
+    }
+
     throw error;
   }
 };
