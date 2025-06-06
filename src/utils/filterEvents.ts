@@ -1,6 +1,7 @@
 import { Event } from '../models/event.model';
+import { FiltersState } from '../components/major/side-bar/types';
 
-export const filterEvents = (events: Event[], filters) => {
+export const filterEvents = (events: Event[], filters: FiltersState) => {
   return events.filter((event: Event) => {
     const searchMatch =
       filters.search === '' ||
@@ -13,29 +14,30 @@ export const filterEvents = (events: Event[], filters) => {
     const distanceMatch = event.distance <= filters.distance;
 
     const eventDate = new Date(event.date);
+    const eventDateOnly = new Date(
+      eventDate.getFullYear(),
+      eventDate.getMonth(),
+      eventDate.getDate(),
+    );
 
-    let filterDate = null;
+    const now = new Date();
+    const dateOnly = new Date(now.getFullYear(), now.getMonth(), now.getDate());
 
-    const date = new Date();
+    const filterDate = new Date(dateOnly);
 
-    switch (true) {
-      case filters.date === 'today':
-        filterDate = date.setDate(date.getDate());
-        break;
-      case filters.date === 'this week':
-        filterDate = date.setDate(date.getDate() + 7);
-        break;
-      case filters.date === 'this month':
-        filterDate = date.setMonth(date.getMonth() + 1);
-        break;
-      case filters.date === 'this year':
-        filterDate = date.setFullYear(date.getFullYear() + 1);
+    if (filters.date === 'today') {
+      filterDate.setDate(filterDate.getDate() + 1);
+    } else if (filters.date === 'this week') {
+      filterDate.setDate(filterDate.getDate() + 7);
+    } else if (filters.date === 'this month') {
+      filterDate.setMonth(filterDate.getMonth() + 1);
+    } else if (filters.date === 'this year') {
+      filterDate.setFullYear(filterDate.getFullYear() + 1);
     }
 
-    // const dateMatch =
-    return (
-      priceMatch && distanceMatch && searchMatch && filterDate && eventDate
-    );
+    const dateMatch = eventDateOnly <= filterDate;
+
+    return priceMatch && distanceMatch && searchMatch && dateMatch;
   });
 };
 /*     search: '',
