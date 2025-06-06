@@ -6,6 +6,7 @@ export default function Events(info: Event) {
     <div className="p-4 m-4 border solid white rounded w-[50%]">
       <h1 className="text-xl font-bold">{info.name}</h1>
       <p>{info.location}</p>
+      <p>{info.distance}km away</p>
       <p>{new Date(info.date).toLocaleDateString()}</p>
       <p>{info.description}</p>
       <p>Price: {info.price}</p>

@@ -1,9 +1,11 @@
-import { ReactNode, useState } from 'react';
-import Events from '../major/events';
+import { useEffect, useState } from 'react';
 import NavBar from '../major/nav-bar';
 import SideBar from '../major/side-bar';
-import { GetRouterAPI } from '../../api/util.ts';
 import { FiltersState } from '../major/side-bar/types.ts';
+import EventsContainer from '../major/eventsContainer.tsx';
+import { getEventByMode } from '../../api/services/events.ts';
+import { filterEvents } from '../../utils/filterEvents.ts';
+import { Event } from 'models/event.model.ts';
 
 export default function EventLayout() {
   const [filters, setFilters] = useState<FiltersState>({
@@ -21,11 +23,24 @@ export default function EventLayout() {
     }));
   };
 
-  const events = GetRouterAPI('events');
-  const infos: Array<ReactNode> = [];
-  for (let i = 0; i < events.length; i++) {
-    infos.push(Events(events[i]));
-  }
+  const [rawEvents, setRawEvents] = useState<Event[]>([]);
+  const [filteredEvents, setFilteredEvents] = useState<Event[]>([]);
+
+  useEffect(() => {
+    const getEvents = async () => {
+      try {
+        const data = await getEventByMode(filters.selectedModes);
+        setRawEvents(data);
+      } catch (error) {
+        new Error('Error setting events by mode: ' + error);
+      }
+    };
+    getEvents();
+  }, [filters.selectedModes]);
+
+  useEffect(() => {
+    setFilteredEvents(filterEvents(rawEvents, filters));
+  }, [rawEvents, filters]);
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -37,7 +52,9 @@ export default function EventLayout() {
         <div className="h-full border-r bg-accent">
           <SideBar filters={filters} updateFilters={updateFilters} />
         </div>
-        <div className="flex flex-col grow items-center mt-12">{infos}</div>
+        <div className="flex flex-1">
+          <EventsContainer events={filteredEvents} />
+        </div>
       </div>
     </div>
   );

@@ -1,4 +1,4 @@
-import { Event } from '../models/event.model';
+import { Event } from 'models/event.model';
 import { FiltersState } from '../components/major/side-bar/types';
 
 export const filterEvents = (events: Event[], filters: FiltersState) => {
