@@ -4,12 +4,14 @@ interface FormInputProps {
   name: string;
   label: string;
   type?: InputType;
+  error: boolean;
 }
 
 export default function FormInput({
   name,
   label,
   type = 'text',
+  error = false,
 }: FormInputProps) {
   return (
     <div>
@@ -18,9 +20,13 @@ export default function FormInput({
         type={type}
         id={name}
         name={name}
-        className="bg-[var(--color-input-bg)] text-[var(--color-text)] outline-none"
         required
-      ></input>
+        className={`bg-[var(--color-input-bg)] text-[var(--color-text)] outline-none pl-1 border ${
+          error
+            ? 'border border-[var(--color-error)]'
+            : 'border border-transparent'
+        }`}
+      />
     </div>
   );
 }
