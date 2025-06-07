@@ -1,5 +1,7 @@
 import DirectButton from '../minor/DirectButton';
+import ThemeButton from '../minor/ThemeButton';
 import { useState } from 'react';
+//import { TokenContext } from '../../config/TokenContext';
 import { useLocation, useNavigate } from 'react-router';
 import '../../styles/navbar.css';
 import { useAuth } from '../../auth/useAuth';
@@ -30,7 +32,7 @@ export default function NavBar() {
     <div className="border-b-3 input">
       {/* Desktop navbar */}
       <div className="hidden md:flex justify-between items-center">
-        <DirectButton text={'LIGHT MODE'} route={'/userhome'} />
+        <ThemeButton />
 
         <div className="flex justify-between gap-4">
           <DirectButton
@@ -66,7 +68,7 @@ export default function NavBar() {
       {/* Mobile navbar */}
       <div className="md:hidden">
         <div className="flex justify-between items-center">
-          <DirectButton text={'LIGHT MODE'} route={user ? '/userhome' : '/'} />
+          <ThemeButton />
           <button
             onClick={toggleMenu}
             className="text-l p-1 pl-5 pr-5 hover:bg-[rgba(225,210,229,0.1)]"

@@ -14,7 +14,13 @@ export default function FormInput({
   return (
     <div>
       <label htmlFor={name}>{label}</label>
-      <input type={type} id={name} name={name} required></input>
+      <input
+        type={type}
+        id={name}
+        name={name}
+        className="bg-[var(--color-input-bg)] text-[var(--color-text)] outline-none"
+        required
+      ></input>
     </div>
   );
 }
