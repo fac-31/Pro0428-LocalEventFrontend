@@ -1,7 +1,9 @@
 export const getEventByMode = async (modes: string[]) => {
   const query = new URLSearchParams({ mode: modes.join(',') }).toString();
 
-  const response = await fetch(`http://localhost:3000/events?${query}`);
+  const response = await fetch(
+    `https://the-locals-9rzy9sh2cykj.deno.dev/${query}`,
+  );
 
   if (!response.ok) {
     throw new Error('Failed to fetch events');
