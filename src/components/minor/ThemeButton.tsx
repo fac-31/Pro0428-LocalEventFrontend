@@ -1,4 +1,4 @@
-import { useTheme } from '../../config/useTheme';
+import { useTheme } from '../../hooks/useTheme';
 
 export default function ThemeButton() {
   const { theme, toggleTheme } = useTheme();

@@ -1,32 +1,13 @@
-import { ReactNode, useState } from 'react';
-import Events from '../major/events';
 import NavBar from '../major/nav-bar';
 import SideBar from '../major/side-bar';
-import { GetRouterAPI } from '../../api/util.ts';
-import { FiltersState } from '../major/side-bar/types.ts';
+import EventsContainer from '../major/eventsContainer.tsx';
+import { useEventFilters } from '../../hooks/useEventFilters.ts';
+import { useEvents } from '../../hooks/useEvents.ts';
 
+// Create hook folder and extract the filter and event filter into it. along with usetheme.
 export default function EventLayout() {
-  const [filters, setFilters] = useState<FiltersState>({
-    selectedModes: ['music'],
-    search: '',
-    price: 50,
-    distance: 20,
-    date: 'this month',
-  });
-
-  const updateFilters = (updates: Partial<FiltersState>) => {
-    setFilters((prev) => ({
-      ...prev,
-      ...updates,
-    }));
-  };
-
-  const events = GetRouterAPI('events');
-
-  const infos: Array<ReactNode> = [];
-  for (let i = 0; i < events.length; i++) {
-    infos.push(Events(events[i]));
-  }
+  const { filters, updateFilters } = useEventFilters();
+  const { filteredEvents } = useEvents(filters);
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -38,7 +19,9 @@ export default function EventLayout() {
         <div className="h-full border-r bg-accent">
           <SideBar filters={filters} updateFilters={updateFilters} />
         </div>
-        <div className="flex grow">{infos}</div>
+        <div className="flex flex-1">
+          <EventsContainer events={filteredEvents} />
+        </div>
       </div>
     </div>
   );
