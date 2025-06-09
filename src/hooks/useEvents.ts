@@ -13,6 +13,7 @@ export const useEvents = (filters: FiltersState) => {
       try {
         const data = await getEventByMode(filters.selectedModes);
         setRawEvents(data);
+        console.log(data);
       } catch (error) {
         new Error('Error setting events by mode: ' + error);
       }

@@ -10,6 +10,7 @@ const EventsContainer = ({ events }: Props) => {
     <div className="flex flex-col grow items-center mt-12">
       {events.map((event) => (
         <Events
+          _id={event._id}
           mode={event.mode}
           name={event.name}
           date={event.date}
