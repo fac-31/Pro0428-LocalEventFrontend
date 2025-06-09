@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router';
 import { FieldErrors, login } from '../api/services/auth.ts';
 import { useAuth } from '../auth/useAuth.tsx';
 import { UserLogInInput } from 'models/user.model.ts';
+import api from '../api/api.ts';
 
 export default function Login() {
   const [formData, setFormData] = useState<UserLogInInput>({
@@ -73,6 +74,28 @@ export default function Login() {
     }
   }
 
+  function requestPasswordReset(): void {
+    const email = formData.username;
+
+    if (!email || !email.includes('@')) {
+      displayErrors('Please enter a valid email to reset your password.');
+      return;
+    }
+
+    api
+      .post('/auth/request-password-reset', { email })
+      .then(() => {
+        setErrorMessage('Reset link sent if email exists.');
+      })
+      .catch(() => {
+        setErrorMessage('Error sending reset link. Please try again later.');
+      });
+
+    setTimeout(() => {
+      setErrorMessage(' ');
+    }, 6000);
+  }
+
   return (
     <div className="flex min-h-screen">
       <div className="m-auto w-full max-w-md px-4">
@@ -113,6 +136,10 @@ export default function Login() {
           </div>
         )}
       </div>
+      <DirectButton
+        text={'forgot your password?'}
+        onClick={requestPasswordReset}
+      />
     </div>
   );
 }
