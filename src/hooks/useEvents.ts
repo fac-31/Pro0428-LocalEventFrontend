@@ -2,11 +2,11 @@ import { useState, useEffect } from 'react';
 import { FiltersState } from '../components/major/side-bar/types';
 import { getEventByMode } from '../api/services/events';
 import { filterEvents } from '../utils/filterEvents';
-import { Event } from 'models/event.model';
+import { FullEvent } from 'models/event.model';
 
 export const useEvents = (filters: FiltersState) => {
-  const [rawEvents, setRawEvents] = useState<Event[]>([]);
-  const [filteredEvents, setFilteredEvents] = useState<Event[]>([]);
+  const [rawEvents, setRawEvents] = useState<FullEvent[]>([]);
+  const [filteredEvents, setFilteredEvents] = useState<FullEvent[]>([]);
 
   useEffect(() => {
     const getEvents = async () => {
