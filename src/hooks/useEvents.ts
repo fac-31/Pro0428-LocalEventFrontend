@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect } from 'react';
 import { FiltersState } from '../components/major/side-bar/types';
 import { getEventByMode } from '../api/services/events';
 import { filterEvents } from '../utils/filterEvents';
