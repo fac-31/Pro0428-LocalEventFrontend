@@ -1,37 +1,81 @@
 //component for events data
-import { Link } from 'react-router';
-import { Wrench } from 'lucide-react';
+import { useState } from 'react';
+import { Link, useNavigate } from 'react-router';
+import { Wrench, Trash2 } from 'lucide-react';
 
 import { useAuth } from '../../auth/useAuth';
+import { deleteEventById } from '../../api/services/events.ts';
 import { FullEvent } from 'models/event.model.ts';
+
+import DirectButton from '../minor/DirectButton';
 
 export default function Events(info: FullEvent) {
   const { user } = useAuth();
   const admin = user && user.role === 'admin';
 
+  const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
+
+  const handleDelete = async () => {
+    // TODO handle response from API for fails
+    if (info._id !== undefined) {
+      await deleteEventById(info._id.toString());
+
+      navigate(0); // refreshes the current page were in, as we dont want to show deleted event
+    }
+
+    setOpen(false);
+  };
+
   return (
     <div className="p-4 m-4 border solid white rounded w-[50%]">
       <div className="flex">
-        <h1 className="w-full text-xl font-bold">{info.name}</h1>
-        {admin ? (
-          <div>
+        <div className="w-full">
+          <h1 className="text-xl font-bold">{info.name}</h1>
+          <p>{info.location}</p>
+          <p>{info.distance}km away</p>
+          <p>{new Date(info.date).toLocaleDateString()}</p>
+        </div>
+        {admin && (
+          <div className="flex flex-col gap-2">
             <Link
               to={'/events/edit/' + info._id}
-              className={`flex gap-2 p-2 rounded-md outline-2 outline-primary hover:bg-input-bg`}
+              className={`p-2 rounded-md outline-2 outline-primary hover:bg-input-bg`}
             >
               <Wrench />
             </Link>
+
+            <button
+              onClick={() => setOpen(true)}
+              className="p-2 rounded-md outline-2 outline-primary hover:bg-input-bg"
+            >
+              <Trash2 />
+            </button>
           </div>
-        ) : (
-          ''
         )}
       </div>
-      <p>{info.location}</p>
-      <p>{info.distance}km away</p>
-      <p>{new Date(info.date).toLocaleDateString()}</p>
       <p>{info.description}</p>
       <p>Price: {info.price}</p>
       <p>More info can be found here - {info.url}</p>
+
+      {open && (
+        <div
+          onClick={() => setOpen(false)}
+          className="fixed inset-0 bg-black/50 flex justify-center items-center"
+        >
+          <div className="popup p-4">
+            <h4 className="mb-5">
+              Are you sure you want to delete <b>{info.name}</b>?
+            </h4>
+
+            <div className="flex justify-center items-center gap-5">
+              <DirectButton onClick={handleDelete} text="Yes" />
+
+              <DirectButton onClick={() => setOpen(false)} text="No" />
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

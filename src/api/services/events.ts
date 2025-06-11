@@ -41,3 +41,21 @@ export const updateEventById = async (
     throw error;
   }
 };
+
+export interface DeleteEventResponse {
+  message: string;
+}
+
+export const deleteEventById = async (
+  id: string,
+): Promise<DeleteEventResponse | null> => {
+  try {
+    const { data } = await api.delete<DeleteEventResponse>('/events/' + id);
+    return data;
+  } catch (error) {
+    if (axios.isAxiosError(error) && error.response?.status === 401) {
+      return null;
+    }
+    throw error;
+  }
+};
