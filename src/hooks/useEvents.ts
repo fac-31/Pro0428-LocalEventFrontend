@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { FiltersState } from '../components/major/side-bar/types';
 import { getEventByMode } from '../api/services/events';
 import { filterEvents } from '../utils/filterEvents';
@@ -25,5 +25,9 @@ export const useEvents = (filters: FiltersState) => {
   useEffect(() => {
     setFilteredEvents(filterEvents(rawEvents, filters));
   }, [rawEvents, filters]);
+
+  console.log('=== RETURNED FROM USE EVENTS HOOK ===');
+  console.log('filtered events', filteredEvents);
+  console.log('raw events', rawEvents);
   return { rawEvents, filteredEvents };
 };
