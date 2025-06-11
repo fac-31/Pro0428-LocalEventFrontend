@@ -6,5 +6,6 @@ export const getEventByMode = async (modes: string[]) => {
   if (!response.ok) {
     throw new Error('Failed to fetch events');
   }
+  console.log(response);
   return response.json();
 };
