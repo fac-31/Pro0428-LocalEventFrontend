@@ -2,3 +2,8 @@
   display: flex;
   justify-content: space-around;
 }
+
+.popup {
+  background: var(--color-background);
+  border-radius: 1rem;
+}
