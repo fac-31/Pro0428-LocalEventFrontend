@@ -13,7 +13,10 @@ export default function SaveEventButton({
 }: Props) {
   console.log(isSaved);
   return (
-    <button onClick={() => handleSaveToggle(eventId)}>
+    <button
+      onClick={() => handleSaveToggle(eventId)}
+      className="flex items-top"
+    >
       <Heart color={isSaved ? 'red' : 'grey'} />
     </button>
   );

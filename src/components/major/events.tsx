@@ -41,7 +41,7 @@ export default function Events(props: Props) {
     >
       <div>
         <div className="flex">
-          <div className="w-full">
+          <div className="w-full flex row gap-4 items-top">
             <h1 className="text-xl font-bold">{props.name}</h1>
             <SaveEventButton
               eventId={String(props._id)}
@@ -75,12 +75,9 @@ export default function Events(props: Props) {
       <p>Price: {props.price}</p>
       <p>
         More info can be found here -{' '}
-        <Link
-          to={props.url}
-          className="p-2 rounded-md outline-2 outline-primary hover:bg-input-bg"
-        >
+        <a href={props.url} target="_blank">
           {props.name}
-        </Link>
+        </a>
       </p>
 
       {open && (
