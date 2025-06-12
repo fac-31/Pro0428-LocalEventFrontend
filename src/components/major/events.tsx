@@ -73,7 +73,7 @@ export default function Events(props: Props) {
       </div>
       <p>{props.description}</p>
       <p>Price: {props.price}</p>
-      <p>More info can be found here - {props.url}</p>
+      <p>More info can be found here - <Link to={props.url} className="p-2 rounded-md outline-2 outline-primary hover:bg-input-bg">{props.name}</Link></p>
 
       {open && (
         <div
