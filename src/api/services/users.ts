@@ -1,17 +1,27 @@
 import api from '../api';
-import { ObjectId } from 'mongodb';
 
 type UserEvent = {
-  userId: ObjectId;
-  eventId: ObjectId;
+  eventId: string;
+  active: boolean;
 };
 
 export const saveUserEvents = async (userEvent: UserEvent) => {
   try {
-    await api.post('saveUserEvents', userEvent);
+    await api.post('users/saveUserEvents', userEvent);
     console.log('Saved sucessfully');
     return {};
   } catch (error) {
-    new Error(error);
+    console.error('Error saveing event: ' + error);
+  }
+};
+
+export const getUserEventByMode = async (modes: string[]) => {
+  try {
+    const response = await api.get('users/userEvents', {
+      params: { mode: modes.join(',') },
+    });
+    return response.data;
+  } catch (error) {
+    throw new Error('Failed to fetch events: ' + error);
   }
 };

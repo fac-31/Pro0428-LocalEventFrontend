@@ -3,22 +3,23 @@ import { Event } from 'models/event.model';
 
 type Props = {
   events: Event[];
+  savedEventIds: string[];
+  handleSaveToggle: (id: string) => void;
 };
 
-const EventsContainer = ({ events }: Props) => {
+const EventsContainer = ({
+  events,
+  savedEventIds,
+  handleSaveToggle,
+}: Props) => {
   return (
     <div className="flex flex-col grow items-center mt-12">
       {events.map((event) => (
         <Events
-          _id={event._id}
-          mode={event.mode}
-          name={event.name}
-          date={event.date}
-          price={event.price}
-          description={event.description}
-          distance={event.distance}
-          location={event.location}
-          url={event.url}
+          key={String(event._id)}
+          isSaved={savedEventIds.includes(String(event._id))}
+          handleSaveToggle={handleSaveToggle}
+          {...event}
         />
       ))}
     </div>

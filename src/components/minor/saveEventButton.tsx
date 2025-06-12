@@ -1,16 +1,20 @@
 import { Heart } from 'lucide-react';
-import { useState } from 'react';
 
-export default function saveEventButton(id) => {
-  const [active, setActive] = useState(false);
+type Props = {
+  eventId: string;
+  isSaved: boolean;
+  handleSaveToggle: (id: string) => void;
+};
 
-  const handleClick = (id) => {
-    setActive(!active);
-    
-  }
+export default function SaveEventButton({
+  eventId,
+  isSaved,
+  handleSaveToggle,
+}: Props) {
+  console.log(isSaved);
   return (
-    <button onClick={}>
-      <Heart color={active ? 'red' : ''} />;
+    <button onClick={() => handleSaveToggle(eventId)}>
+      <Heart color={isSaved ? 'red' : 'grey'} />
     </button>
   );
-};
+}
