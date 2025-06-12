@@ -8,12 +8,12 @@ import { useLocation, useNavigate } from 'react-router';
 import { useEffect, useState } from 'react';
 import { getEventByMode } from '../../api/services/events.ts';
 import { filterEvents } from '../../utils/filterEvents.ts';
-import { Event } from 'models/event.model.ts';
+import { FullEvent } from 'models/event.model.ts';
 
 // Create hook folder and extract the filter and event filter into it. along with usetheme.
 export default function EventLayout() {
   const { filters, updateFilters } = useEventFilters();
-  const [allEvents, setAllEvents] = useState<Event[]>([]);
+  const [allEvents, setAllEvents] = useState<FullEvent[]>([]);
   const [savedEventIds, setSavedEventIds] = useState<string[]>([]);
   const user = useAuth();
   const navigate = useNavigate();

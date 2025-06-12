@@ -25,8 +25,8 @@ export default function Events(props: Props) {
 
   const handleDelete = async () => {
     // TODO handle response from API for fails
-    if (info._id !== undefined) {
-      await deleteEventById(info._id.toString());
+    if (props._id !== undefined) {
+      await deleteEventById(props._id.toString());
 
       navigate(0); // refreshes the current page were in, as we dont want to show deleted event
     }
@@ -41,22 +41,22 @@ export default function Events(props: Props) {
     >
       <div>
         <div className="flex">
-        <div className="w-full">
-          <h1 className="text-xl font-bold">{props.name}</h1>
+          <div className="w-full">
+            <h1 className="text-xl font-bold">{props.name}</h1>
             <SaveEventButton
-          eventId={String(props._id)}
-          isSaved={props.isSaved}
-          handleSaveToggle={props.handleSaveToggle}
-        />
-      </div>
-      <p>{props.location}</p>
+              eventId={String(props._id)}
+              isSaved={props.isSaved}
+              handleSaveToggle={props.handleSaveToggle}
+            />
+          </div>
+          <p>{props.location}</p>
           <p>{props.distance}km away</p>
           <p>{new Date(props.date).toLocaleDateString()}</p>
         </div>
         {admin && (
           <div className="flex flex-col gap-2">
             <Link
-              to={'/events/edit/' + info._id}
+              to={'/events/edit/' + props._id}
               className={`p-2 rounded-md outline-2 outline-primary hover:bg-input-bg`}
             >
               <Wrench />
@@ -82,7 +82,7 @@ export default function Events(props: Props) {
         >
           <div className="popup p-4">
             <h4 className="mb-5">
-              Are you sure you want to delete <b>{info.name}</b>?
+              Are you sure you want to delete <b>{props.name}</b>?
             </h4>
 
             <div className="flex justify-center items-center gap-5">
