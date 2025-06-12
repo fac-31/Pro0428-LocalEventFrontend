@@ -1,15 +1,17 @@
-type InputType = 'text' | 'email' | 'password';
+type InputType = 'text' | 'email' | 'number' | 'password';
 
 interface FormInputProps {
   name: string;
   label: string;
+  def?: string | number;
   type?: InputType;
-  error: boolean;
+  error?: boolean;
 }
 
 export default function FormInput({
   name,
   label,
+  def = '',
   type = 'text',
   error = false,
 }: FormInputProps) {
@@ -20,6 +22,7 @@ export default function FormInput({
         type={type}
         id={name}
         name={name}
+        defaultValue={def}
         required
         className={`bg-[var(--color-input-bg)] text-[var(--color-text)] outline-none pl-1 border ${
           error

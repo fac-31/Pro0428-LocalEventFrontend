@@ -1,8 +1,8 @@
 import Events from './events';
-import { Event } from 'models/event.model';
+import { FullEvent } from 'models/event.model';
 
 type Props = {
-  events: Event[];
+  events: FullEvent[];
   savedEventIds: string[];
   handleSaveToggle: (id: string) => void;
 };
