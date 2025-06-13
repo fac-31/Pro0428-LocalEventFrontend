@@ -1,26 +1,30 @@
+/*
 import { useState, useEffect } from 'react';
+import { useLocation } from 'react-router';
 import { FiltersState } from '../components/major/side-bar/types';
 import { getEventByMode } from '../api/services/events';
 import { filterEvents } from '../utils/filterEvents';
-import { Event } from 'models/event.model';
+import { FullEvent } from 'models/event.model';
 
 export const useEvents = (filters: FiltersState) => {
-  const [rawEvents, setRawEvents] = useState<Event[]>([]);
-  const [filteredEvents, setFilteredEvents] = useState<Event[]>([]);
+  const [rawEvents, setRawEvents] = useState<FullEvent[]>([]);
+  const [filteredEvents, setFilteredEvents] = useState<FullEvent[]>([]);
+  const location = useLocation();
 
   useEffect(() => {
-    const getEvents = async () => {
+    const fetchEvents = async () => {
       try {
-        const data = await getEventByMode(filters.selectedModes);
+        const { events } = await getEventByMode(filters.selectedModes);
         console.log('=== EVENTS ===');
         console.log(data);
-        setRawEvents(data);
+        setRawEvents(events);
       } catch (error) {
-        new Error('Error setting events by mode: ' + error);
+        console.error('Error fetching events with saved info:', error);
       }
     };
-    getEvents();
-  }, [filters.selectedModes]);
+
+    fetchEvents();
+  }, [filters.selectedModes, location.pathname]);
 
   useEffect(() => {
     setFilteredEvents(filterEvents(rawEvents, filters));
@@ -29,5 +33,7 @@ export const useEvents = (filters: FiltersState) => {
   console.log('=== RETURNED FROM USE EVENTS HOOK ===');
   console.log('filtered events', filteredEvents);
   console.log('raw events', rawEvents);
+
   return { rawEvents, filteredEvents };
 };
+*/
