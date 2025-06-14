@@ -33,10 +33,10 @@
   --color-input-bg: rgba(255, 0, 0, 0.05);
   --color-error: rgb(215, 41, 41);
 
-  --color-border-music: #42a5f5;
-  --color-border-charity: #66bb6a;
-  --color-border-sports: #ec407a;
-  --color-border-other:rgb(255, 252, 200);
+  --color-border-music:rgb(50, 124, 184);
+  --color-border-charity:rgb(48, 166, 54);
+  --color-border-sports:rgb(172, 39, 83);
+  --color-border-other:rgb(111, 40, 177);
 }
 
 body {
