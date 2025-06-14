@@ -2,63 +2,20 @@ import axios from 'axios';
 import api from '../api';
 import { SafeUser, UserLogInInput, UserSignUpInput } from 'models/user.model';
 
-export interface MeResponse {
-  message: string;
-  user: SafeUser;
-}
-
-export type FieldErrors = Partial<{
-  username: string;
-  password: string;
-  name_first: string;
-  name_last: string;
-  email: string;
-}>;
-
-export type LoginErrorDetails =
-  | {
-      type: 'dbError';
-      message: string;
-    }
-  | {
-      type: 'fieldErrors';
-      fieldErrors: FieldErrors;
-    };
-
-export type LoginResponse = {
-  token: string | null;
-  errors: LoginErrorDetails | null;
-};
-
-export type SignupFieldErrors = Partial<{
-  email: string;
-  username: string;
-  password: string;
-}>;
-
-export type SignupErrorDetails =
-  | {
-      type: 'dbError';
-      message: string;
-    }
-  | {
-      type: 'fieldErrors';
-      fieldErrors: SignupFieldErrors;
-    };
-
-export type SignupResponse =
-  | {
-      insertedId: string;
-      errors: null;
-    }
-  | {
-      insertedId: null;
-      errors: SignupErrorDetails;
-    };
+import {
+  MeSuccessResponse,
+  LoginSuccessResponse,
+  LoginErrorResponse,
+  LoginResponse,
+  SignupSuccessResponse,
+  SignupErrorResponse,
+  SignupResponse,
+} from 'services/auth.service.ts';
+import { ErrorResponse } from 'services/general.service.ts';
 
 export const getMe = async (): Promise<SafeUser | null> => {
   try {
-    const { data } = await api.get<MeResponse>('/auth/me');
+    const { data } = await api.get<MeSuccessResponse>('/auth/me');
     return data.user;
   } catch (error) {
     if (axios.isAxiosError(error) && error.response?.status === 401) {
@@ -72,40 +29,18 @@ export const login = async (
   credentials: UserLogInInput,
 ): Promise<LoginResponse> => {
   try {
-    const { data } = await api.post<{ token: string }>(
+    const { data } = await api.post<LoginSuccessResponse>(
       '/auth/login',
       credentials,
     );
-    return {
-      token: data.token,
-      errors: null,
-    };
+    return data;
   } catch (error) {
-    if (
-      axios.isAxiosError(error) &&
-      error.response?.data?.errors?.fieldErrors
-    ) {
-      const fieldErrors = error.response.data.errors.fieldErrors;
-
-      return {
-        token: null,
-        errors: {
-          type: 'fieldErrors',
-          fieldErrors: {
-            username: fieldErrors.username,
-            password: fieldErrors.password,
-          },
-        },
-      };
+    if (axios.isAxiosError(error) && error.response?.data?.errors) {
+      return error.response.data as LoginErrorResponse;
     }
+
     if (axios.isAxiosError(error) && error.response?.data?.error) {
-      return {
-        token: null,
-        errors: {
-          type: 'dbError',
-          message: error.response.data.error,
-        },
-      };
+      return error.response.data as ErrorResponse;
     }
 
     throw error;
@@ -126,42 +61,18 @@ export const signup = async (
   credentials: UserSignUpInput,
 ): Promise<SignupResponse> => {
   try {
-    const { data } = await api.post<{ insertedId: string }>(
+    const { data } = await api.post<SignupSuccessResponse>(
       '/auth/signup',
       credentials,
     );
-    return {
-      insertedId: data.insertedId,
-      errors: null,
-    };
+    return data as SignupSuccessResponse;
   } catch (error) {
-    if (
-      axios.isAxiosError(error) &&
-      error.response?.data?.errors?.fieldErrors
-    ) {
-      const fieldErrors = error.response.data.errors.fieldErrors;
-
-      return {
-        insertedId: null,
-        errors: {
-          type: 'fieldErrors',
-          fieldErrors: {
-            email: fieldErrors.email,
-            username: fieldErrors.username,
-            password: fieldErrors.password,
-          },
-        },
-      };
+    if (axios.isAxiosError(error) && error.response?.data?.errors) {
+      return error.response.data as SignupErrorResponse;
     }
 
     if (axios.isAxiosError(error) && error.response?.data?.error) {
-      return {
-        insertedId: null,
-        errors: {
-          type: 'dbError',
-          message: error.response.data.error,
-        },
-      };
+      return error.response.data as ErrorResponse;
     }
 
     throw error;

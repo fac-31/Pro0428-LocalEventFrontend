@@ -3,7 +3,12 @@ import FormInput from '../components/minor/FormInput';
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
 
-import { FieldErrors, login, signup } from '../api/services/auth.ts';
+import { login, signup } from '../api/services/auth.ts';
+import {
+  LoginResponse,
+  SignupErrorDetails,
+  SignupResponse,
+} from 'services/auth.service.ts';
 
 import '../styles/login.css';
 import { useAuth } from '../auth/useAuth.tsx';
@@ -31,7 +36,7 @@ export default function SignUp() {
     setFormData((prevState) => ({ ...prevState, [name]: value }));
   };
 
-  const displayErrors = (error: string | FieldErrors) => {
+  const displayErrors = (error: string | SignupErrorDetails) => {
     if (typeof error === 'string') {
       if (error.includes('email')) {
         setFieldErrorStates({
@@ -50,7 +55,7 @@ export default function SignUp() {
         setErrorMessage(error);
       }
     } else {
-      const { username, password } = error;
+      const { username, password } = error.fieldErrors;
       const messages = [
         username && `Username too short`,
         password && `Password too short`,
@@ -73,42 +78,31 @@ export default function SignUp() {
   async function handleSignup(e: React.FormEvent) {
     e.preventDefault();
 
-    const signupResult = await signup(formData);
+    const signupResult: SignupResponse = await signup(formData);
 
-    if (signupResult.insertedId) {
-      const loginResult = await login({
+    if ('insertedId' in signupResult) {
+      const loginResult: LoginResponse = await login({
         username: formData.username,
         password: formData.password,
       });
 
-      if (loginResult.token) {
+      if ('token' in loginResult) {
         localStorage.setItem('token', loginResult.token);
         await refreshUser();
         navigate('/userhome');
-      } else if (loginResult.errors) {
-        switch (loginResult.errors.type) {
-          case 'dbError':
-            displayErrors(loginResult.errors.message);
-            break;
-          case 'fieldErrors':
-            displayErrors(loginResult.errors.fieldErrors);
-            break;
-          default:
-            displayErrors('An unknown error occurred.');
-        }
+      } else if ('errors' in loginResult) {
+        displayErrors(loginResult.errors);
+      } else if ('error' in loginResult) {
+        displayErrors(loginResult.error);
+      } else {
+        displayErrors('An unknown error occurred.');
       }
-    } else if (signupResult.errors) {
-      switch (signupResult.errors.type) {
-        case 'dbError':
-          displayErrors(signupResult.errors.message);
-          break;
-        case 'fieldErrors':
-          displayErrors(signupResult.errors.fieldErrors);
-          break;
-        default:
-          displayErrors('An unknown error occurred during signup.');
-          break;
-      }
+    } else if ('errors' in signupResult) {
+      displayErrors(signupResult.errors);
+    } else if ('error' in signupResult) {
+      displayErrors(signupResult.error);
+    } else {
+      displayErrors('An unknown error occurred during signup.');
     }
   }
 

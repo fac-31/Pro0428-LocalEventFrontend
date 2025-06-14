@@ -8,6 +8,7 @@ import NavBar from '../components/major/nav-bar';
 import FormInput from '../components/minor/FormInput';
 
 import { Event } from 'models/event.model.ts';
+import { GeneralResponse } from 'services/general.service.ts';
 
 export default function EditEvent() {
   let { id } = useParams();
@@ -47,8 +48,8 @@ export default function EditEvent() {
 
     if (!formData) return;
 
-    const result = await updateEventById(eventId, formData);
-    if (result && result.message) setMessage(result.message);
+    const result: GeneralResponse = await updateEventById(eventId, formData);
+    if ('message' in result) setMessage(result.message);
   }
 
   return (
