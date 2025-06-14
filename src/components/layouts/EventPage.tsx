@@ -25,6 +25,14 @@ export default function EventLayout() {
         const { events, savedEventIds } = await getEventByMode(
           filters.selectedModes,
         );
+        const result = await getEventByMode(filters.selectedModes);
+        console.log('=== FULL RESULT FROM getEventByMode ===');
+        console.log(result);
+        console.log('=== EVENTS PROPERTY ===');
+        console.log(result?.events);
+        console.log('=== SAVED EVENT IDS ===');
+        console.log(result?.savedEventIds);
+
         setAllEvents(events);
         setSavedEventIds(savedEventIds);
       } catch (error) {
@@ -34,7 +42,7 @@ export default function EventLayout() {
     fetchEvents();
   }, [filters.selectedModes, user.user]);
 
-  const filteredEvents = filterEvents(allEvents, filters);
+  const filteredEvents = allEvents ? filterEvents(allEvents, filters) : [];
 
   const displayedEvents =
     location.pathname === '/savedevents'
