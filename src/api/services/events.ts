@@ -4,10 +4,13 @@ import api from '../api';
 import { Event } from 'models/event.model';
 
 export const getEventByMode = async (modes: string[]) => {
+  console.log('getting events by mode...');
   try {
     const response = await api.get('/events', {
       params: { mode: modes.join(',') },
     });
+    console.log('=== RESPONSE DATA FROM BACKEND ===');
+    console.log(response.data);
     return response.data;
   } catch (error) {
     throw new Error('Failed to fetch events: ' + error);

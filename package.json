@@ -20,13 +20,9 @@
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-router": "^7.6.0",
-<<<<<<< HEAD
     "tailwindcss": "^4.1.6",
     "ts-node": "^10.9.2",
     "zod": "^3.25.48"
-=======
-    "tailwindcss": "^4.1.6"
->>>>>>> saveUserEvents
   },
   "devDependencies": {
     "@eslint/js": "^9.22.0",
