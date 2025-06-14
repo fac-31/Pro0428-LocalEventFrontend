@@ -36,7 +36,10 @@ export const filterEvents = (events: FullEvent[], filters: FiltersState) => {
     }
 
     const dateMatch = eventDateOnly <= filterDate;
-
+    console.log('===FILTER RESULTS===');
+    console.log('Price match', priceMatch);
+    console.log('Distance match', distanceMatch);
+    console.log('date match', dateMatch);
     return priceMatch && distanceMatch && searchMatch && dateMatch;
   });
 };
