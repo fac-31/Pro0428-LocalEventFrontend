@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from 'react';
 import { TokenContext } from '../config/TokenContext';
 
 function GetFullURL(url: string) {
-  return 'http://localhost:3000/' + url;
+  return 'https://the-locals.deno.dev/' + url;
 }
 
 export function GetRouterAPI(url: string) {

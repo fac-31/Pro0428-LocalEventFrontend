@@ -37,7 +37,7 @@ export const Filters = ({
         icon={HandCoins}
         label="Max Price (£)"
         value={price}
-        max={50}
+        max={100}
         suffix="£"
         onChange={(val) => updateFilters({ price: val })}
       />

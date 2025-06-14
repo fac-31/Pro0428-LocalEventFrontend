@@ -18,7 +18,6 @@ export default function EditEvent() {
   const { event } = useEventById(eventId);
   const [formData, setFormData] = useState<Event | null>(null);
   const [message, setMessage] = useState('');
-
   if (!event) return;
 
   if (formData === null) {
@@ -37,9 +36,11 @@ export default function EditEvent() {
   }
 
   const handleChange = (e: React.FormEvent) => {
-    const { name, value } = e.target as HTMLInputElement;
+    const { name, value, type } = e.target as HTMLInputElement;
+
+    const parsedValue = type === 'number' ? Number(value) : value;
     setFormData((prevState) =>
-      prevState ? { ...prevState, [name]: value } : null,
+      prevState ? { ...prevState, [name]: parsedValue } : null,
     );
   };
 
@@ -47,9 +48,8 @@ export default function EditEvent() {
     e.preventDefault();
 
     if (!formData) return;
-
     const result: GeneralResponse = await updateEventById(eventId, formData);
-    if ('message' in result) setMessage(result.message);
+    if (result && 'message' in result) setMessage(result.message);
   }
 
   return (
