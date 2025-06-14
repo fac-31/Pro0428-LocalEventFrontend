@@ -24,8 +24,9 @@
     
     "baseUrl": ".",
     "paths": {
-      "models/*": ["shared/src/models/*"]
+      "models/*": ["shared/src/models/*"],
+      "services/*": ["shared/src/services/*"],
     }
   },
-  "include": ["src", "shared/src/models"]
+  "include": ["src", "shared/src"]
 }

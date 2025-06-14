@@ -2,6 +2,11 @@ import axios from 'axios';
 import api from '../api';
 
 import { Event } from 'models/event.model';
+import {
+  GeneralResponse,
+  MessageResponse,
+  ErrorResponse,
+} from 'services/general.service';
 
 export const getEventByMode = async (modes: string[]) => {
   console.log('getting events by mode...');
@@ -31,38 +36,28 @@ export const getEventById = async (id: string) => {
   return events;
 };
 
-export interface UpdateEventResponse {
-  message: string;
-}
-
 export const updateEventById = async (
   id: string,
   event: Event,
-): Promise<UpdateEventResponse | null> => {
+): Promise<GeneralResponse> => {
   try {
-    const { data } = await api.put<UpdateEventResponse>('/events/' + id, event);
-    return data;
+    const { data } = await api.put<GeneralResponse>('/events/' + id, event);
+    return data as MessageResponse;
   } catch (error) {
     if (axios.isAxiosError(error) && error.response?.status === 401) {
-      return null;
+      return error.response.data as ErrorResponse;
     }
     throw error;
   }
 };
 
-export interface DeleteEventResponse {
-  message: string;
-}
-
-export const deleteEventById = async (
-  id: string,
-): Promise<DeleteEventResponse | null> => {
+export const deleteEventById = async (id: string): Promise<GeneralResponse> => {
   try {
-    const { data } = await api.delete<DeleteEventResponse>('/events/' + id);
-    return data;
+    const { data } = await api.delete<GeneralResponse>('/events/' + id);
+    return data as MessageResponse;
   } catch (error) {
     if (axios.isAxiosError(error) && error.response?.status === 401) {
-      return null;
+      return error.response.data as ErrorResponse;
     }
     throw error;
   }

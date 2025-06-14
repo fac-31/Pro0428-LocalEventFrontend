@@ -3,9 +3,10 @@ import DirectButton from '../components/minor/DirectButton';
 import FormInput from '../components/minor/FormInput';
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
-import { FieldErrors, login } from '../api/services/auth.ts';
+import { login } from '../api/services/auth.ts';
 import { useAuth } from '../auth/useAuth.tsx';
 import { UserLogInInput } from 'models/user.model.ts';
+import { LoginErrorDetails, LoginResponse } from 'services/auth.service.ts';
 
 export default function Login() {
   const [formData, setFormData] = useState<UserLogInInput>({
@@ -26,12 +27,12 @@ export default function Login() {
     setFormData((prevState) => ({ ...prevState, [name]: value }));
   };
 
-  const displayErrors = (error: string | FieldErrors) => {
+  const displayErrors = (error: string | LoginErrorDetails) => {
     if (typeof error === 'string') {
       setFieldErrorStates({ username: false, password: false });
       setErrorMessage(error);
     } else {
-      const { username, password } = error;
+      const { username, password } = error.fieldErrors;
       const messages = [
         username && `Username too short`,
         password && `Password too short`,
@@ -52,24 +53,18 @@ export default function Login() {
 
   async function handleLogin(e: React.FormEvent) {
     e.preventDefault();
-    const { token, errors } = await login(formData);
+    const result: LoginResponse = await login(formData);
 
-    if (token) {
-      localStorage.setItem('token', token);
+    if ('token' in result) {
+      localStorage.setItem('token', result.token);
       await refreshUser();
       navigate('/userhome');
-    } else if (errors) {
-      switch (errors.type) {
-        case 'dbError':
-          displayErrors(errors.message);
-          break;
-        case 'fieldErrors':
-          displayErrors(errors.fieldErrors);
-          break;
-        default:
-          displayErrors('An unknown error occurred.');
-          break;
-      }
+    } else if ('errors' in result) {
+      displayErrors(result.errors);
+    } else if ('error' in result) {
+      displayErrors(result.error);
+    } else {
+      displayErrors('An unknown error occurred.');
     }
   }
 
