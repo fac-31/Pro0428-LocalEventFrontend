@@ -46,7 +46,7 @@ export const Filters = ({
         icon={MapPin}
         label="Max Distance (km)"
         value={distance}
-        max={100}
+        max={30}
         suffix="km"
         onChange={(val) => updateFilters({ distance: val })}
       />

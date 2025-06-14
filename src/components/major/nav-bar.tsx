@@ -29,7 +29,7 @@ export default function NavBar() {
   };
 
   return (
-    <div className="border-b-3 input bg-[var(--color-background)]">
+    <div className="border-b-3 input bg-[var(--color-accent)]">
       {/* Desktop navbar */}
       <div className="hidden md:flex justify-between items-center">
         <ThemeButton />

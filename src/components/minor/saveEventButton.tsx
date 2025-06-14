@@ -11,13 +11,12 @@ export default function SaveEventButton({
   isSaved,
   handleSaveToggle,
 }: Props) {
-  console.log(isSaved);
   return (
     <button
       onClick={() => handleSaveToggle(eventId)}
-      className="flex items-top"
+      className="transition-transform duration-200 hover:scale-110"
     >
-      <Heart color={isSaved ? 'red' : 'grey'} />
+      <Heart style={{ color: isSaved ? 'var(--color-error)' : 'grey' }} />
     </button>
   );
 }

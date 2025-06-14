@@ -10,12 +10,11 @@ import { getEventByMode } from '../../api/services/events.ts';
 import { filterEvents } from '../../utils/filterEvents.ts';
 import { FullEvent } from 'models/event.model.ts';
 
-// Create hook folder and extract the filter and event filter into it. along with usetheme.
 export default function EventLayout() {
   const { filters, updateFilters } = useEventFilters();
   const [allEvents, setAllEvents] = useState<FullEvent[]>([]);
   const [savedEventIds, setSavedEventIds] = useState<string[]>([]);
-  const user = useAuth();
+  const { user } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -32,7 +31,7 @@ export default function EventLayout() {
       }
     };
     fetchEvents();
-  }, [filters.selectedModes, user.user]);
+  }, [filters.selectedModes, user]);
 
   const filteredEvents = filterEvents(allEvents, filters);
 
@@ -42,7 +41,7 @@ export default function EventLayout() {
       : filteredEvents;
 
   const handleSaveToggle = (eventId: string) => {
-    if (!user.user) {
+    if (!user) {
       navigate('/login');
       return;
     }
@@ -56,17 +55,52 @@ export default function EventLayout() {
     });
   };
 
+  function generateFilterDescription(filters: FiltersState): string {
+    const { selectedModes, price, distance, search, date } = filters;
+
+    const parts: string[] = [];
+
+    if (selectedModes.length) {
+      parts.push(`showing ${selectedModes.join(', ')}`);
+    }
+
+    if (price > 0 && price < 50) {
+      parts.push(`under £${price}`);
+    }
+
+    if (distance > 0 && distance < 30) {
+      parts.push(`up to ${distance}km away`);
+    }
+
+    if (search.trim()) {
+      parts.push(`including "${search.trim()}"`);
+    }
+
+    if (date && date !== 'this year') {
+      parts.push(`happening ${date}`);
+    }
+
+    return parts.length ? parts.join(', ') : 'showing everything';
+  }
+
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="h-screen w-screen overflow-hidden pl-4">
+      {/* Fixed NavBar */}
       <div className="fixed top-0 left-0 w-full z-50 bg-accent">
         <NavBar />
       </div>
 
-      <div className="flex flex-1">
-        <div className="h-full border-r bg-accent">
+      {/* Main layout area */}
+      <div className="flex pt-16 h-full ml-10">
+        {/* Sidebar */}
+        <div className="h-full border-r bg-accent shrink-0">
           <SideBar filters={filters} updateFilters={updateFilters} />
         </div>
-        <div className="flex flex-1">
+
+        {/* Scrollable content area */}
+        <div className="flex-1 overflow-y-auto">
+          <h1 className="text-3xl text-center mt-3">FINSBURY EVENTS</h1>
+          <p className="text-center">{generateFilterDescription(filters)}</p>
           <EventsContainer
             events={displayedEvents}
             savedEventIds={savedEventIds}

@@ -16,8 +16,13 @@ export const ModeButtons = ({
             onClick={() => toggleModeSelect(id)}
             title={!open ? label : undefined}
             className={`flex items-center justify-center gap-2 p-2 w-full rounded-md 
-                ${isSelected ? 'outline-2 outline-primary' : ''}
+                ${isSelected ? 'outline-2' : ''}
                 hover:bg-input-bg`}
+            style={{
+              outlineColor: isSelected
+                ? `var(--color-border-${label.toLowerCase()})`
+                : 'transparent',
+            }}
           >
             {open ? (
               <span className="text-xl text-center w-full gap-0.5">

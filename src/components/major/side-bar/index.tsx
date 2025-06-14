@@ -46,8 +46,9 @@ const SideBar = ({ filters, updateFilters }: FiltersProps) => {
   return (
     <div
       ref={sidebarRef}
-      className={`fixed top-9 p-2 h-full flex flex-col items-start border-text border-r-2 bg-accent transition-all duration-300 ease-in-out ${
-        open ? 'w-66' : 'w-15'
+      style={{ backgroundColor: 'var(--color-accent)' }}
+      className={`fixed top-9 left-0 z-5 p-2 h-full flex flex-col items-start border-text border-r-2 transition-all duration-100 ${
+        open ? 'w-72' : 'w-15'
       }`}
     >
       <MenuButton setOpen={setOpen} open={open} />
