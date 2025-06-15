@@ -21,7 +21,7 @@
   }
 }
 
-.light {
+html.light {
   --color-background: #e1d2e5;
   --color-accent: #e1d2e5;
   --color-text: #2d272f;
