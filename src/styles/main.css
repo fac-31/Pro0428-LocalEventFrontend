@@ -32,25 +32,12 @@ html.light {
 @import 'tailwindcss';
 @import 'tw-animate-css'; */
 
-html.dark {
-  /* Default (dark) theme */
+.dark {
   --color-background: #2d272f;
   --color-accent: rgb(38, 35, 39);
   --color-text: #e1d2e5;
   --color-input-bg: #e1d2e51a;
   --color-error: rgb(248, 111, 111);
-
-  --animate-fade-in-left: fade-in-left 0.4s;
-  @keyframes fade-in-left {
-    from {
-      opacity: 0;
-      transform: translateX(-20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateX(0);
-    }
-  }
 }
 
 .light {
