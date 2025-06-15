@@ -32,7 +32,7 @@ html.light {
 @import 'tailwindcss';
 @import 'tw-animate-css'; */
 
-.dark {
+html.dark {
   /* Default (dark) theme */
   --color-background: #2d272f;
   --color-accent: rgb(38, 35, 39);
