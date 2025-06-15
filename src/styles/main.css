@@ -33,7 +33,7 @@ html.light {
 @import 'tw-animate-css'; */
 
 :root,
-html {
+html.dark {
   /* Default (dark) theme */
   --color-background: #2d272f;
   --color-accent: rgb(38, 35, 39);
