@@ -63,6 +63,17 @@ html.light,
   --color-error: rgb(215, 41, 41);
 }
 
+html,
+html *,
+:host,
+:host * {
+  --color-background: inherit;
+  --color-accent: inherit;
+  --color-text: inherit;
+  --color-input-bg: inherit;
+  --color-error: inherit;
+}
+
 body {
   min-height: 100vh;
   color: var(--color-text);
