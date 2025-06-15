@@ -1,31 +1,19 @@
 @import 'tailwindcss';
 @import 'tw-animate-css';
 
-:root {
+.dark {
   --color-background: #2d272f;
   --color-accent: rgb(38, 35, 39);
   --color-text: #e1d2e5;
   --color-input-bg: #e1d2e51a;
   --color-error: rgb(248, 111, 111);
-
-  --animate-fade-in-left: fade-in-left 0.4s;
-  @keyframes fade-in-left {
-    from {
-      opacity: 0;
-      transform: translateX(-20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateX(0);
-    }
-  }
 }
 
 .light {
   --color-background: #e1d2e5;
   --color-accent: #e1d2e5;
   --color-text: #2d272f;
-  --color-input-bg: rgba(255, 0, 0, 0.05);
+  --color-input-bg: rgba(38, 35, 39, 0.2);
   --color-error: rgb(215, 41, 41);
 }
 
