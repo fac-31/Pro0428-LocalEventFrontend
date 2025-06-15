@@ -22,7 +22,9 @@ type Props = FullEvent & {
   handleSaveToggle: (id: string) => void;
 };
 
-const modeIconMap = {
+type ModeKey = 'music' | 'charity' | 'sports' | 'other';
+
+const modeIconMap: Record<ModeKey, typeof Music> = {
   music: Music,
   charity: HelpingHand,
   sports: Bike,
@@ -36,7 +38,8 @@ export default function Events(props: Props) {
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
 
-  const IconComponent = modeIconMap[props.mode.toLowerCase()] || Ellipsis;
+  const mode = props.mode.toLowerCase() as ModeKey;
+  const IconComponent = modeIconMap[mode] || Ellipsis;
 
   const handleDelete = async () => {
     if (props._id !== undefined) {

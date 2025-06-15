@@ -6,6 +6,7 @@ interface FormInputProps {
   def?: string | number;
   type?: InputType;
   error?: boolean;
+  disabled?: boolean;
 }
 
 export default function FormInput({
@@ -14,6 +15,7 @@ export default function FormInput({
   def = '',
   type = 'text',
   error = false,
+  disabled = false,
 }: FormInputProps) {
   return (
     <div>
@@ -24,11 +26,12 @@ export default function FormInput({
         name={name}
         defaultValue={def}
         required
+        disabled={disabled}
         className={`bg-[var(--color-input-bg)] text-[var(--color-text)] outline-none pl-1 border ${
           error
             ? 'border border-[var(--color-error)]'
             : 'border border-transparent'
-        }`}
+        } ${disabled ? 'opacity-50 cursor-not-allowed' : ''}`}
       />
     </div>
   );

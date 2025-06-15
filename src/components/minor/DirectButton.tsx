@@ -14,9 +14,10 @@ export default function DirectButton({
   onClick,
 }: DirectButtonProps) {
   const isActive = pathname === route;
+
   const className = isActive
-    ? 'text-l sm:text-xl p-1 pl-5 pr-5 bg-[rgba(225,210,229,0.1)]'
-    : 'text-l sm:text-xl p-1 pl-5 pr-5 hover:bg-[rgba(225,210,229,0.1)]';
+    ? 'text-l sm:text-xl p-1 pl-5 pr-5 bg-[var(--color-input-bg)]'
+    : 'text-l sm:text-xl p-1 pl-5 pr-5 hover:bg-[var(--color-input-bg)]';
 
   if (onClick) {
     return (

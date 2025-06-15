@@ -8,6 +8,8 @@ import UserProfile from '../pages/UserProfile';
 import Error from '../pages/Error';
 import SavedEvents from '../pages/SavedEvents';
 import EditEvent from '../pages/EditEvent';
+import RequestPasswordReset from '../pages/RequestPasswordReset';
+import ResetPassword from '../pages/ResetPassword';
 
 const router = createBrowserRouter([
   {
@@ -21,6 +23,14 @@ const router = createBrowserRouter([
   {
     path: '/signup',
     element: <SignUp />,
+  },
+  {
+    path: '/request-password-reset',
+    element: <RequestPasswordReset />,
+  },
+  {
+    path: 'reset-password',
+    element: <ResetPassword />,
   },
   {
     path: '/userhome/:mode?',

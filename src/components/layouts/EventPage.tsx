@@ -9,6 +9,7 @@ import { useEffect, useState } from 'react';
 import { getEventByMode } from '../../api/services/events.ts';
 import { filterEvents } from '../../utils/filterEvents.ts';
 import { FullEvent } from 'models/event.model.ts';
+import { FiltersState } from '../major/side-bar/types.ts';
 
 export default function EventLayout() {
   const { filters, updateFilters } = useEventFilters();
@@ -99,7 +100,7 @@ export default function EventLayout() {
       </div>
 
       {/* Main layout area */}
-      <div className="flex pt-16 h-full ml-10">
+      <div className="flex pt-8 h-full ml-10">
         {/* Sidebar */}
         <div className="h-full border-r bg-accent shrink-0">
           <SideBar filters={filters} updateFilters={updateFilters} />

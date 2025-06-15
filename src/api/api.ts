@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: 'https://the-locals.deno.dev/',
+  baseURL: import.meta.env.VITE_FRONTEND_URL,
 });
 
 api.interceptors.request.use(

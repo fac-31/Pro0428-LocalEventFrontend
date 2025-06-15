@@ -2,7 +2,7 @@ import '../styles/login.css';
 import DirectButton from '../components/minor/DirectButton';
 import FormInput from '../components/minor/FormInput';
 import { useState } from 'react';
-import { useNavigate } from 'react-router';
+import { useNavigate, Link } from 'react-router';
 import { FieldErrors, login } from '../api/services/auth.ts';
 import { useAuth } from '../auth/useAuth.tsx';
 import { UserLogInInput } from 'models/user.model.ts';
@@ -17,6 +17,7 @@ export default function Login() {
     username: false,
     password: false,
   });
+  const [showResetLink, setShowResetLink] = useState(false);
 
   const navigate = useNavigate();
   const { refreshUser } = useAuth();
@@ -26,15 +27,15 @@ export default function Login() {
     setFormData((prevState) => ({ ...prevState, [name]: value }));
   };
 
-  const displayErrors = (error: string | FieldErrors) => {
+  const displayErrors = (error: string | FieldErrors, type?: string) => {
     if (typeof error === 'string') {
       setFieldErrorStates({ username: false, password: false });
       setErrorMessage(error);
     } else {
       const { username, password } = error;
       const messages = [
-        username && `Username too short`,
-        password && `Password too short`,
+        username && 'Username too short',
+        password && 'Password too short',
       ]
         .filter(Boolean)
         .join('\n');
@@ -45,6 +46,8 @@ export default function Login() {
         password: !!password,
       });
     }
+    setShowResetLink(type === 'dbError');
+
     setTimeout(() => {
       setErrorMessage(' ');
     }, 6000);
@@ -61,7 +64,7 @@ export default function Login() {
     } else if (errors) {
       switch (errors.type) {
         case 'dbError':
-          displayErrors(errors.message);
+          displayErrors(errors.message, 'dbError');
           break;
         case 'fieldErrors':
           displayErrors(errors.fieldErrors);
@@ -88,25 +91,38 @@ export default function Login() {
                 name="username"
                 label="Username"
                 error={fieldErrorStates.username}
-              ></FormInput>
+              />
               <FormInput
                 name="password"
                 label="Password"
                 type="password"
                 error={fieldErrorStates.password}
-              ></FormInput>
+              />
 
               <div>
                 <input
                   className="uppercase w-full text-[var(--color-text)] border border-[var(--color-text)]"
                   type="submit"
                   value="Log In"
-                ></input>
+                />
               </div>
             </form>
           </div>
           <DirectButton text={'SIGN UP'} route={'/signup'} />
         </div>
+
+        {/* Show reset link only if a dbError occurred */}
+        {showResetLink && (
+          <div className="text-sm mt-1">
+            <Link
+              to="/request-password-reset"
+              className="underline text-[var(--color-text)] hover:text-[var(--color-error)]"
+            >
+              Reset your password?
+            </Link>
+          </div>
+        )}
+
         {errorMessage && (
           <div className="font-semibold min-h-[3.5rem] text-[var(--color-error)] whitespace-pre-line text-center mt-5">
             {errorMessage}

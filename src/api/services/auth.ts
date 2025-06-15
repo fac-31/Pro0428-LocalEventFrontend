@@ -8,11 +8,11 @@ export interface MeResponse {
 }
 
 export type FieldErrors = Partial<{
-  username: string;
-  password: string;
-  name_first: string;
-  name_last: string;
-  email: string;
+  username: string[];
+  password: string[];
+  email: string[];
+  name_first: string[];
+  name_last: string[];
 }>;
 
 export type LoginErrorDetails =
@@ -30,11 +30,25 @@ export type LoginResponse = {
   errors: LoginErrorDetails | null;
 };
 
-export type SignupFieldErrors = Partial<{
-  email: string;
-  username: string;
-  password: string;
+export type PasswordResetFieldErrors = Partial<{
+  password: string[];
+  confirmedPassword: string[];
 }>;
+
+export type PasswordResetErrorDetails =
+  | {
+      type: 'dbError';
+      message: string;
+    }
+  | {
+      type: 'fieldErrors';
+      fieldErrors: PasswordResetFieldErrors;
+    };
+
+export type PasswordResetResponse = {
+  message: string | null;
+  errors: PasswordResetErrorDetails | null;
+};
 
 export type SignupErrorDetails =
   | {
@@ -43,7 +57,7 @@ export type SignupErrorDetails =
     }
   | {
       type: 'fieldErrors';
-      fieldErrors: SignupFieldErrors;
+      fieldErrors: FieldErrors;
     };
 
 export type SignupResponse =
@@ -164,6 +178,82 @@ export const signup = async (
       };
     }
 
+    throw error;
+  }
+};
+
+export type UpdateUserData = Partial<{
+  password: string;
+  confirmedPassword: string;
+  username: string;
+  name_first: string;
+  name_last: string;
+  email: string;
+}>;
+
+export type UpdateUserFieldErrors = Partial<{
+  password: string[];
+  confirmedPassword: string[];
+  username: string[];
+  name_first: string[];
+  name_last: string[];
+  email: string[];
+}>;
+
+export type UpdateUserErrorDetails =
+  | {
+      type: 'dbError';
+      message: string;
+    }
+  | {
+      type: 'fieldErrors';
+      fieldErrors: UpdateUserFieldErrors;
+    };
+
+export type UpdateUserResponse = {
+  message: string | null;
+  errors: UpdateUserErrorDetails | null;
+};
+
+export const updateUser = async (
+  userData: UpdateUserData,
+): Promise<UpdateUserResponse> => {
+  try {
+    const { data } = await api.put<{ message: string }>('/auth/me', userData);
+    return {
+      message: data.message || 'User updated successfully',
+      errors: null,
+    };
+  } catch (error) {
+    if (
+      axios.isAxiosError(error) &&
+      error.response?.data?.errors?.fieldErrors
+    ) {
+      const fieldErrors = error.response.data.errors.fieldErrors;
+      return {
+        message: null,
+        errors: {
+          type: 'fieldErrors',
+          fieldErrors: {
+            password: fieldErrors.password,
+            confirmedPassword: fieldErrors.confirmedPassword,
+            username: fieldErrors.username,
+            name_first: fieldErrors.name_first,
+            name_last: fieldErrors.name_last,
+            email: fieldErrors.email,
+          },
+        },
+      };
+    }
+    if (axios.isAxiosError(error) && error.response?.data?.error) {
+      return {
+        message: null,
+        errors: {
+          type: 'dbError',
+          message: error.response.data.error,
+        },
+      };
+    }
     throw error;
   }
 };
