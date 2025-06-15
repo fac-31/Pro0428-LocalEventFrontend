@@ -32,8 +32,7 @@ html.light {
 @import 'tailwindcss';
 @import 'tw-animate-css'; */
 
-:root,
-html.dark {
+.dark {
   /* Default (dark) theme */
   --color-background: #2d272f;
   --color-accent: rgb(38, 35, 39);
@@ -54,24 +53,12 @@ html.dark {
   }
 }
 
-html.light,
-:root.light {
+.light {
   --color-background: #e1d2e5;
   --color-accent: #e1d2e5;
   --color-text: #2d272f;
   --color-input-bg: rgba(255, 0, 0, 0.05);
   --color-error: rgb(215, 41, 41);
-}
-
-html,
-html *,
-:host,
-:host * {
-  --color-background: inherit;
-  --color-accent: inherit;
-  --color-text: inherit;
-  --color-input-bg: inherit;
-  --color-error: inherit;
 }
 
 body {
