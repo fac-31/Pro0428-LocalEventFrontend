@@ -51,7 +51,7 @@ export default function Events(props: Props) {
 
   return (
     <div
-      className="p-3 m-5 rounded w-fit h-fit"
+      className="p-4 m-3 rounded w-fit h-fit"
       style={{
         border: `2px solid var(--color-border-${props.mode.toLowerCase()})`,
       }}

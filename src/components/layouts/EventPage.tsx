@@ -108,7 +108,9 @@ export default function EventLayout() {
 
         {/* Scrollable content area */}
         <div className="flex-1 overflow-y-auto">
-          <h1 className="text-3xl text-center mt-3">FINSBURY EVENTS</h1>
+          <h1 className="text-5xl font-bold text-center mt-4">
+            FINSBURY EVENTS
+          </h1>
           <p className="text-center">{generateFilterDescription(filters)}</p>
           <EventsContainer
             events={displayedEvents}

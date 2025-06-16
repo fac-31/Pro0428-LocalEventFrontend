@@ -22,7 +22,7 @@ const EventsContainer = ({
     : events;
 
   return (
-    <div className="flex flex-wrap justify-center w-full max-w-screen-xl mx-auto px-4 mt-3">
+    <div className="flex flex-wrap justify-center w-full max-w-screen-xxl mx-auto px-4 mt-3">
       {isSavedEventsPage && !hasSavedEvents ? (
         <p className="text-center w-full">No saved events yet.</p>
       ) : (
