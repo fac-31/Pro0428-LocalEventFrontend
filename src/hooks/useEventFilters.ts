@@ -3,7 +3,7 @@ import { FiltersState } from '../components/major/side-bar/types';
 
 export const useEventFilters = () => {
   const [filters, setFilters] = useState<FiltersState>({
-    selectedModes: ['music'],
+    selectedModes: [],
     search: '',
     price: 50,
     distance: 20,

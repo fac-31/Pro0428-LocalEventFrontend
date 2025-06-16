@@ -1,8 +1,8 @@
-import { Event } from 'models/event.model';
+import { FullEvent } from 'models/event.model';
 import { FiltersState } from '../components/major/side-bar/types';
 
-export const filterEvents = (events: Event[], filters: FiltersState) => {
-  return events.filter((event: Event) => {
+export const filterEvents = (events: FullEvent[], filters: FiltersState) => {
+  return events.filter((event: FullEvent) => {
     const searchMatch =
       filters.search === '' ||
       event.name

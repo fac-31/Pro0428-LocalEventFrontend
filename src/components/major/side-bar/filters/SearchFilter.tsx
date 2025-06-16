@@ -6,13 +6,13 @@ export const SearchFilter: React.FC<SearchFilterProps> = ({
   onChange,
 }) => {
   return (
-    <div className="flex items-center gap-2 w-full hover:bg-input-bg p-2 rounded-md">
+    <div className="flex items-center gap-2 w-full hover:bg-input-bg p-2 rounded-md ">
       <Search />
       <input
         type="text"
         value={search}
         onChange={(e) => onChange(e.target.value)}
-        className=" flex-1 bg-transparent outline-none text-sm px-2 py-1 rounded"
+        className=" flex-1 bg-transparent outline-none text-(-color-text) text-sm px-2 py-1 rounded"
       />
     </div>
   );
