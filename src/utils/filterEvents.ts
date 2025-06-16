@@ -14,13 +14,12 @@ export const filterEvents = (events: FullEvent[], filters: FiltersState) => {
     const distanceMatch = event.distance <= filters.distance;
 
     const eventDate = new Date(event.date);
-    const eventDateOnly = new Date(
+    /*const eventDateOnly = new Date(
       eventDate.getFullYear(),
       eventDate.getMonth(),
       eventDate.getDate(),
-    );
+    );*/
 
-    const eventDate = new Date(event.date); // full date with time
     const now = new Date();
 
     // Create date range filters
