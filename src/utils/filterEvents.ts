@@ -26,7 +26,7 @@ export const filterEvents = (events: Event[], filters: FiltersState) => {
     const filterDate = new Date(dateOnly);
 
     if (filters.date === 'today') {
-      filterDate.setDate(filterDate.getDate() + 1);
+      filterDate.setDate(filterDate.setHours(23, 59, 59, 999));
     } else if (filters.date === 'this week') {
       filterDate.setDate(filterDate.getDate() + 7);
     } else if (filters.date === 'this month') {
