@@ -36,7 +36,7 @@ export default function Events(props: Props) {
 
   return (
     <div
-      className="p-4 m-4 border solid white rounded w-[50%]"
+      className="p-2 pb-9 m-4 border-b-4 border-color-text w-[50%]"
       data-id={props._id}
     >
       <div>

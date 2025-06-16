@@ -15,7 +15,7 @@ export const ModeButtons = ({
             key={id}
             onClick={() => toggleModeSelect(id)}
             title={!open ? label : undefined}
-            className={`flex items-center justify-center gap-2 p-2 w-full rounded-md 
+            className={`flex items-center justify-center gap-2 p-2 w-full rounded-md
                 ${isSelected ? 'outline-2 outline-primary' : ''}
                 hover:bg-input-bg`}
           >

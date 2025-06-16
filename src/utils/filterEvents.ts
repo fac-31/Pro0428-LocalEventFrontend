@@ -24,7 +24,6 @@ export const filterEvents = (events: FullEvent[], filters: FiltersState) => {
     const dateOnly = new Date(now.getFullYear(), now.getMonth(), now.getDate());
 
     const filterDate = new Date(dateOnly);
-
     if (filters.date === 'today') {
       filterDate.setDate(filterDate.getDate() + 1);
     } else if (filters.date === 'this week') {
@@ -43,6 +42,7 @@ export const filterEvents = (events: FullEvent[], filters: FiltersState) => {
     return priceMatch && distanceMatch && searchMatch && dateMatch;
   });
 };
+
 /*     search: '',
     price: 50,
     distance: 20,
